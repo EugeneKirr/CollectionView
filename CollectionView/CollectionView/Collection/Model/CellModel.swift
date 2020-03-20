@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CellModel {
+struct CellModel: Codable {
     
     var isVisible: Bool
     let value: Int

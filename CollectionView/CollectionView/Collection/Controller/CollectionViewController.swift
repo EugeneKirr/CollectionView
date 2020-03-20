@@ -8,97 +8,106 @@
 
 import UIKit
 
-protocol CollectionViewControllerDelegate: NSObjectProtocol {
-    
-    var cellAmount: Int { get }
-    var repeatedValues: Int { get }
-
+protocol CollectionViewControllerDelegate: AnyObject {
+    func saveCurrentSession(_ session: Session)
 }
 
 class CollectionViewController: UICollectionViewController {
     
     weak var delegate: CollectionViewControllerDelegate?
     
-    var cellAmount: Int {
-        guard let amount = self.delegate?.cellAmount else { return 8 }
-        return amount
-    }
-    var repeatedValues: Int {
-        guard let repeated = self.delegate?.repeatedValues else { return 2 }
-        return repeated
-    }
-    
-    var cells: [CellModel] = []
-    var selectedCells: [Int:Int] = [:]
+    var session = Session(cellAmount: 0, repeatedValues: 0, cells: [], selectedCells: [:])
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        cells = CellModel.getCells(cellCounter: cellAmount, repeatCounter: repeatedValues)
+        configueNavBar()
     }
     
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cells.count
+        return session.cellAmount
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
-        cell.showCover()
+        session.cells[indexPath.row].isVisible ? cell.showNumber(number: session.cells[indexPath.row].value) : cell.showCover()
         return cell
     }
 
     // MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return !cells[indexPath.row].isVisible
+        return !session.cells[indexPath.row].isVisible
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        cells[indexPath.row].isVisible = true
-        reloadCellViews()
-        selectedCells[indexPath.row] = cells[indexPath.row].value
-        guard selectedCells.count == repeatedValues else { return }
+        
+        session.cells[indexPath.row].isVisible = true
+        updateCellViews()
+        session.selectedCells[indexPath.row] = session.cells[indexPath.row].value
+        
+        guard session.selectedCells.count == session.repeatedValues else { return }
         checkSelectedCells()
         checkGuessedCells()
+        
     }
     
-    func reloadCellViews() {
-        for index in 0...(cells.count-1) {
+    func updateCellViews() {
+        for index in 0...(session.cellAmount-1) {
             guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CollectionCell else { break }
-            cells[index].isVisible ? cell.showNumber(number: cells[index].value) : cell.showCover()
+            session.cells[index].isVisible ? cell.showNumber(number: session.cells[index].value) : cell.showCover()
         }
     }
     
     func checkSelectedCells() {
-        let cellsAreEqual = selectedCells.values.max() == selectedCells.values.min()
-        for index in selectedCells.keys {
-            cells[index].isVisible = cellsAreEqual
+        let cellsAreEqual = session.selectedCells.values.max() == session.selectedCells.values.min()
+        for index in session.selectedCells.keys {
+            session.cells[index].isVisible = cellsAreEqual
         }
-        selectedCells = [:]
+        session.selectedCells.removeAll()
     }
         
     func checkGuessedCells() {
         var guessedCellCount = 0
-        for index in 0...(cells.count-1) {
-            cells[index].isVisible ? guessedCellCount += 1 : nil
+        for index in 0...(session.cellAmount-1) {
+            session.cells[index].isVisible ? guessedCellCount += 1 : nil
         }
-        guard guessedCellCount == cells.count else { return }
+        guard guessedCellCount == session.cellAmount else { return }
         showNewGameAlert()
     }
     
     func showNewGameAlert() {
         let ac = UIAlertController(title: "You win!", message: "Press OK to start new game", preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default) { (action) in
-            self.cells = CellModel.getCells(cellCounter: self.cellAmount, repeatCounter: self.repeatedValues)
-            self.collectionView.reloadData()
+            self.reloadCollectionView()
         }
         let menu = UIAlertAction(title: "Menu", style: .default) { (action) in
-            self.navigationController?.popViewController(animated: true)
+            self.goToMenu()
         }
         ac.addAction(ok)
         ac.addAction(menu)
         present(ac, animated: true)
+    }
+    
+    func configueNavBar() {
+        let navReloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadCollectionView))
+        let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.rightBarButtonItem = navReloadButton
+        self.navigationItem.leftBarButtonItem = navMenuButton
+        self.navigationItem.title = "Find matched cells"
+    }
+    
+    @objc func reloadCollectionView() {
+        session.cells = CellModel.getCells(cellCounter: session.cellAmount, repeatCounter: session.repeatedValues)
+        session.selectedCells.removeAll()
+        collectionView.reloadData()
+    }
+    
+    @objc func goToMenu() {
+        delegate?.saveCurrentSession(session)
+        self.navigationController?.popViewController(animated: true)
     }
 
 }
