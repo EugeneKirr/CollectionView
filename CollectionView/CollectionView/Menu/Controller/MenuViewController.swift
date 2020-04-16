@@ -12,63 +12,87 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var amountSegmentedControl: UISegmentedControl!
     @IBOutlet weak var repeatedSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var topScoreButton: UIButton!
     
-    var cellAmount: Int {
-        return 8*(amountSegmentedControl.selectedSegmentIndex + 1)
+    private let sessionManager = SessionManager()
+    
+    var selectedCellAmount: Int {
+        guard let selectedSegmentTitle = amountSegmentedControl.titleForSegment(at: amountSegmentedControl.selectedSegmentIndex),
+              let selectedAmount = Int(selectedSegmentTitle) else { return 8 }
+        return selectedAmount
     }
     
-    var repeatedValues: Int {
-        return Int(pow(2.0, Double(repeatedSegmentedControl.selectedSegmentIndex + 1) ))
+    var selectedRepeatPics: Int {
+        guard let selectedSegmentTitle = repeatedSegmentedControl.titleForSegment(at: repeatedSegmentedControl.selectedSegmentIndex),
+              let selectedRepeat = Int(selectedSegmentTitle) else { return 2 }
+        return selectedRepeat
+    }
+    
+    @IBAction func changeAmountValue(_ sender: UISegmentedControl) {
+        checkAvailableModes()
     }
 
     @IBAction func tapPlayButton(_ sender: UIButton) {
-        let main = UIStoryboard(name: "Main", bundle: nil)
-        guard let collectionVC = main.instantiateViewController(identifier: "CollectionVC") as? CollectionViewController else { return }
-        collectionVC.session = Session(cellAmount: cellAmount,
-                                 repeatedValues: repeatedValues,
-                                 cells: CellModel.getCells(cellCounter: cellAmount, repeatCounter: repeatedValues),
-                                 selectedCells: [:])
-        collectionVC.delegate = self
-        self.navigationController?.pushViewController(collectionVC, animated: true)
+        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC") { (collectionVC: CollectionViewController) in
+            sessionManager.createNewSession(cellAmount: selectedCellAmount, repeatPics: selectedRepeatPics)
+        }
     }
     
     @IBAction func tapContinueButton(_ sender: UIButton) {
-        let defaults = UserDefaults.standard
-        guard let savedSession = defaults.object(forKey: UDKeys.encodedSession.key) as? Data else { return }
-        let decoder = JSONDecoder()
-        guard let loadedSession = try? decoder.decode(Session.self, from: savedSession) else { return }
-        
-        let main = UIStoryboard(name: "Main", bundle: nil)
-        guard let collectionVC = main.instantiateViewController(identifier: "CollectionVC") as? CollectionViewController else { return }
-        collectionVC.session = loadedSession
-        collectionVC.delegate = self
-        self.navigationController?.pushViewController(collectionVC, animated: true)
+        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC") { (collectionVC: CollectionViewController) in }
+    }
+    
+    @IBAction func tapTopScoreButton(_ sender: UIButton) {
+        pushViewController(storyboardName: "ScoreTable", vcIdentifier: "scoreTableVC") { (ScoreTableViewController) in }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavBar()
+        roundingButtons()
+        checkAvailableModes()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        guard sessionManager.isSessionExist() else { return }
+        continueButton.isEnabled = true
+        continueButton.alpha = 1.0
+    }
+    
+    func configureNavBar() {
+        self.navigationController?.navigationBar.barTintColor = .systemYellow
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationItem.title = "Menu"
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        let defaults = UserDefaults.standard
-        guard let _ = defaults.object(forKey: UDKeys.encodedSession.key) as? Data else { return }
-        self.continueButton.isEnabled = true
-        self.continueButton.alpha = 1.0
+    func roundingButtons() {
+        playButton.layer.cornerRadius = playButton.bounds.height/4
+        continueButton.layer.cornerRadius = continueButton.bounds.height/4
+        topScoreButton.layer.cornerRadius = topScoreButton.bounds.height/4
+    }
+    
+    func checkAvailableModes() {
+        for index in (0...(repeatedSegmentedControl.numberOfSegments - 1)).reversed() {
+            guard let segmentTitle = repeatedSegmentedControl.titleForSegment(at: index),
+                  let segmentValue = Int(segmentTitle) else { break }
+            let remainder = selectedCellAmount % segmentValue
+            guard remainder == 0 else {
+                repeatedSegmentedControl.setEnabled(false, forSegmentAt: index)
+                continue
+            }
+            repeatedSegmentedControl.setEnabled(true, forSegmentAt: index)
+            repeatedSegmentedControl.selectedSegmentIndex = index
+        }
+    }
+    
+    func pushViewController<VC: UIViewController>(storyboardName: String, vcIdentifier: String, completionHandler: ((VC) -> Void)) {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        guard let viewController = storyboard.instantiateViewController(identifier: vcIdentifier) as? VC else { return }
+        self.navigationController?.pushViewController(viewController, animated: true)
+        completionHandler(viewController)
     }
 
 }
 
-// MARK: - CollectionViewControllerDelegate
-
-extension MenuViewController: CollectionViewControllerDelegate {
-    
-    func saveCurrentSession(_ session: Session) {
-        let encoder = JSONEncoder()
-        guard let encodedSession = try? encoder.encode(session) else { return }
-        let defaults = UserDefaults.standard
-        defaults.set(encodedSession, forKey: UDKeys.encodedSession.key)
-    }
-    
-}
