@@ -20,16 +20,25 @@ class CollectionViewController: UICollectionViewController {
     private var currentSelectedCells = [Int]()
     private var currentSelectCounter = 0
     
-    private let scoreAmplifier = 100_000
+    private let scoreMultiplier = 100_000
     private var sessionScore: Int {
-        return scoreAmplifier*session.cells.count/currentSelectCounter
+        return scoreMultiplier*session.cells.count/currentSelectCounter
     }
+    private var minTopScore = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         currentSelectCounter = session.selectCounter
         configueNavBar()
         registerCollectionCell()
+        
+        networkManager.fetchRawScoreData { (rawTopScores) in
+            let minRawScoreData = rawTopScores.min { (firstRaw, secondRaw) -> Bool in
+                firstRaw.score < secondRaw.score
+            }
+            guard let minTopScoreValue = minRawScoreData?.score else { return }
+            self.minTopScore = minTopScoreValue
+        }
     }
     
     func registerCollectionCell() {
@@ -109,19 +118,23 @@ class CollectionViewController: UICollectionViewController {
 
     func countGuessedCells() {
         guard sessionManager.areCellsAllGuessed(in: session) else { return }
-        
-        //check top score condition, else showNewGameAlert()
-        showTopScoreAlert()
+        sessionScore > minTopScore ? showTopScoreAlert() : showNewGameAlert()
     }
     
     func showTopScoreAlert() {
         let ac = UIAlertController(title: "You have one of the top scores!\n\(sessionScore)", message: "Please enter your name", preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
-            guard let userName = ac.textFields?.first?.text, userName != "" else { self.showNewGameAlert(); return }
+            guard var userName = ac.textFields?.first?.text else { return }
+            if userName == "" {
+                userName = "Player"
+            }
             let userScore = self.sessionScore
             self.networkManager.postNewScore(userName, userScore)
-            self.showNewGameAlert()
+            
+            let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
+            let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
+            self.navigationController?.pushViewController(scoreTableVC, animated: true)
         }
         ac.addAction(ok)
         ac.addTextField { (textField) in

@@ -13,23 +13,20 @@ class NetworkManager {
     private let urlString = "https://collection-view-game.herokuapp.com/user_scores"
     
     func fetchRawScoreData(completionHandler: @escaping ([RawScoreData]) -> Void) {
-        
         guard let url = URL(string: urlString) else { return }
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }
             let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             guard let rawResult = try? decoder.decode([RawScoreData].self, from: data) else {
-                print("can't decode")
                 guard let rawString = String(data: data, encoding: .utf8) else { return }
                 print(rawString)
                 return
             }
-            print("decode successfuly")
             DispatchQueue.main.async {
                 completionHandler(rawResult)
             }
-            
         }
         task.resume()
     }
@@ -49,13 +46,10 @@ class NetworkManager {
         request.httpBody = jsonData
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else { return }
-            print("post return string")
             guard let rawString = String(data: data, encoding: .utf8) else { return }
             print(rawString)
-            return  
         }
         task.resume()
-        
     }
 
 }

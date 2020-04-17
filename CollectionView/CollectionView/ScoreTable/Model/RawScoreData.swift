@@ -16,12 +16,6 @@ struct RawScoreData: Codable {
     let createdAt: String
     let updatedAt: String
     
-    enum CodingKeys: String, CodingKey {
-        case id, name, score
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-    }
-    
 }
 
 extension RawScoreData {

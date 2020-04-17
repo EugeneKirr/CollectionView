@@ -64,6 +64,7 @@ class MenuViewController: UIViewController {
     func configureNavBar() {
         self.navigationController?.navigationBar.barTintColor = .systemYellow
         self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.tintColor = .darkText
         self.navigationItem.title = "Menu"
     }
     

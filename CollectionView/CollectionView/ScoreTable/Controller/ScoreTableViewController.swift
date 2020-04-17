@@ -17,7 +17,8 @@ class ScoreTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableCell()
-        self.navigationItem.title = "Top Scores"
+        configueNavBar()
+        
         networkManager.fetchRawScoreData { (rawTopScores) in
             self.topScoreData = TopScoreData(rawTopScores)
             self.tableView.reloadData()
@@ -28,6 +29,17 @@ class ScoreTableViewController: UITableViewController {
         let nib = UINib(nibName: "ScoreTableCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "scoreTableCell")
     }
+    
+    func configueNavBar() {
+        let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
+        self.navigationItem.hidesBackButton = true
+        self.navigationItem.leftBarButtonItem = navMenuButton
+        self.navigationItem.title = "Top Scores"
+    }
+    
+    @objc func goToMenu() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
 
     // MARK: - Table view data source
 
@@ -37,7 +49,7 @@ class ScoreTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "scoreTableCell", for: indexPath) as? ScoreTableCell else { return UITableViewCell() }
-        cell.updateLabels(with: topScoreData.scores[indexPath.row])
+        cell.updateLabels(with: topScoreData.scores[indexPath.row], for: (indexPath.row + 1) )
         return cell
     }
     

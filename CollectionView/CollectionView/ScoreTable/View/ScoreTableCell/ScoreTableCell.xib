@@ -15,19 +15,25 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWZ-Hq-rEP">
+                        <rect key="frame" x="8.5" y="0.0" width="31.5" height="80"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2X0-Im-XOE">
-                        <rect key="frame" x="10" y="0.0" width="55" height="80"/>
+                        <rect key="frame" x="50" y="0.0" width="55" height="80"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OlH-iK-s6q">
-                        <rect key="frame" x="255" y="0.0" width="55" height="80"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OlH-iK-s6q">
+                        <rect key="frame" x="245" y="0.0" width="55" height="80"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ct-is-OPp">
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ct-is-OPp">
                         <rect key="frame" x="155.5" y="0.0" width="9.5" height="80"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <nil key="textColor"/>
@@ -35,20 +41,25 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="bottom" secondItem="gWZ-Hq-rEP" secondAttribute="bottom" id="1Uf-vy-76z"/>
                     <constraint firstAttribute="bottom" secondItem="9Ct-is-OPp" secondAttribute="bottom" id="3wt-Fp-zKO"/>
                     <constraint firstItem="9Ct-is-OPp" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="7ua-aN-lj3"/>
                     <constraint firstAttribute="bottom" secondItem="OlH-iK-s6q" secondAttribute="bottom" id="G3h-00-JhQ"/>
+                    <constraint firstItem="2X0-Im-XOE" firstAttribute="leading" secondItem="gWZ-Hq-rEP" secondAttribute="trailing" constant="10" id="GL8-wN-ngp"/>
                     <constraint firstItem="9Ct-is-OPp" firstAttribute="centerY" secondItem="CUd-5w-CVX" secondAttribute="centerY" id="Yj1-7C-JUh"/>
                     <constraint firstItem="OlH-iK-s6q" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="dlO-Ml-xDb"/>
                     <constraint firstItem="9Ct-is-OPp" firstAttribute="centerX" secondItem="CUd-5w-CVX" secondAttribute="centerX" id="iwI-Zt-eX7"/>
-                    <constraint firstItem="2X0-Im-XOE" firstAttribute="leading" secondItem="CUd-5w-CVX" secondAttribute="leading" constant="10" id="nSe-BO-tFu"/>
+                    <constraint firstItem="2X0-Im-XOE" firstAttribute="leading" secondItem="CUd-5w-CVX" secondAttribute="leading" constant="50" id="nSe-BO-tFu"/>
                     <constraint firstAttribute="bottom" secondItem="2X0-Im-XOE" secondAttribute="bottom" id="p0q-Ul-1kM"/>
-                    <constraint firstAttribute="trailing" secondItem="OlH-iK-s6q" secondAttribute="trailing" constant="10" id="pdl-9k-a4t"/>
+                    <constraint firstAttribute="trailing" secondItem="OlH-iK-s6q" secondAttribute="trailing" constant="20" id="pdl-9k-a4t"/>
+                    <constraint firstItem="OlH-iK-s6q" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2X0-Im-XOE" secondAttribute="trailing" constant="5" id="u9o-ol-fXL"/>
+                    <constraint firstItem="gWZ-Hq-rEP" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="yuq-d8-b40"/>
                     <constraint firstItem="2X0-Im-XOE" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="zUT-SE-FLd"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="nameLabel" destination="2X0-Im-XOE" id="k1g-dx-v0C"/>
+                <outlet property="numberLabel" destination="gWZ-Hq-rEP" id="Qno-ec-Jzl"/>
                 <outlet property="scoreLabel" destination="OlH-iK-s6q" id="Pkx-FL-fcL"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="156.69642857142856"/>
