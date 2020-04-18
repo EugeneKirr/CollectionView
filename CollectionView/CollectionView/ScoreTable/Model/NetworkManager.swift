@@ -31,8 +31,7 @@ class NetworkManager {
         task.resume()
     }
     
-    func postNewScore(_ name: String, _ score: Int) {
-        let newRawScoreToPost = RawScoreData(name, score)
+    func postNewScore(_ name: String, _ score: Int, completionHandler: @escaping () -> Void) {
         guard let url = URL(string: urlString) else { return }
         let session = URLSession(configuration: .default)
 
@@ -41,13 +40,27 @@ class NetworkManager {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let encoder = JSONEncoder()
+        let newRawScoreToPost = RawScoreData(name, score)
         guard let jsonData = try? encoder.encode(newRawScoreToPost) else { print("can't encode"); return }
         
         request.httpBody = jsonData
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data else { return }
-            guard let rawString = String(data: data, encoding: .utf8) else { return }
-            print(rawString)
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            guard let postResult = try? decoder.decode(RawScoreData.self, from: data) else {
+                guard let rawString = String(data: data, encoding: .utf8) else { return }
+                print(rawString)
+                return
+            }
+            guard newRawScoreToPost.name == postResult.name,
+                  newRawScoreToPost.score == postResult.score else {
+                    print("posted data not equal received data")
+                    return
+            }
+            DispatchQueue.main.async {
+                completionHandler()
+            }
         }
         task.resume()
     }

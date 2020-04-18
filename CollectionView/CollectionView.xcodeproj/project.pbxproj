@@ -116,8 +116,8 @@
 		0B3A4E60241B923900AFFF84 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0B04356224461E7100E77D2B /* CollectionCell */,
 				0B2FA6A72445E54700ECD675 /* Collection.storyboard */,
+				0B04356224461E7100E77D2B /* CollectionCell */,
 			);
 			path = View;
 			sourceTree = "<group>";

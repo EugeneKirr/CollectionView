@@ -19,9 +19,9 @@ class ScoreTableViewController: UITableViewController {
         registerTableCell()
         configueNavBar()
         
-        networkManager.fetchRawScoreData { (rawTopScores) in
-            self.topScoreData = TopScoreData(rawTopScores)
-            self.tableView.reloadData()
+        networkManager.fetchRawScoreData { [weak self] rawTopScores in
+            self?.topScoreData = TopScoreData(rawTopScores)
+            self?.tableView.reloadData()
         } 
     }
     

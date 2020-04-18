@@ -32,12 +32,12 @@ class CollectionViewController: UICollectionViewController {
         configueNavBar()
         registerCollectionCell()
         
-        networkManager.fetchRawScoreData { (rawTopScores) in
+        networkManager.fetchRawScoreData { [weak self] rawTopScores in
             let minRawScoreData = rawTopScores.min { (firstRaw, secondRaw) -> Bool in
                 firstRaw.score < secondRaw.score
             }
             guard let minTopScoreValue = minRawScoreData?.score else { return }
-            self.minTopScore = minTopScoreValue
+            self?.minTopScore = minTopScoreValue
         }
     }
     
@@ -63,7 +63,7 @@ class CollectionViewController: UICollectionViewController {
         self.navigationItem.title = "Score: \(sessionScore)"
     }
     
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return session.cells.count
@@ -75,7 +75,7 @@ class CollectionViewController: UICollectionViewController {
         return cell
     }
 
-    // MARK: UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let isGuessed = session.cells[indexPath.row].isGuessed
@@ -130,11 +130,11 @@ class CollectionViewController: UICollectionViewController {
                 userName = "Player"
             }
             let userScore = self.sessionScore
-            self.networkManager.postNewScore(userName, userScore)
-            
-            let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
-            let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
-            self.navigationController?.pushViewController(scoreTableVC, animated: true)
+            self.networkManager.postNewScore(userName, userScore) { [weak self] in
+                let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
+                let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
+                self?.navigationController?.pushViewController(scoreTableVC, animated: true)
+            }
         }
         ac.addAction(ok)
         ac.addTextField { (textField) in
