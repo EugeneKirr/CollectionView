@@ -33,22 +33,18 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ct-is-OPp">
-                        <rect key="frame" x="155.5" y="0.0" width="9.5" height="80"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="tR1-tu-sl7">
+                        <rect key="frame" x="141.5" y="21.5" width="37" height="37"/>
+                        <color key="color" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="tR1-tu-sl7" firstAttribute="centerY" secondItem="CUd-5w-CVX" secondAttribute="centerY" id="0Ea-Vd-30Y"/>
                     <constraint firstAttribute="bottom" secondItem="gWZ-Hq-rEP" secondAttribute="bottom" id="1Uf-vy-76z"/>
-                    <constraint firstAttribute="bottom" secondItem="9Ct-is-OPp" secondAttribute="bottom" id="3wt-Fp-zKO"/>
-                    <constraint firstItem="9Ct-is-OPp" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="7ua-aN-lj3"/>
+                    <constraint firstItem="tR1-tu-sl7" firstAttribute="centerX" secondItem="CUd-5w-CVX" secondAttribute="centerX" id="5gd-Er-8od"/>
                     <constraint firstAttribute="bottom" secondItem="OlH-iK-s6q" secondAttribute="bottom" id="G3h-00-JhQ"/>
                     <constraint firstItem="2X0-Im-XOE" firstAttribute="leading" secondItem="gWZ-Hq-rEP" secondAttribute="trailing" constant="10" id="GL8-wN-ngp"/>
-                    <constraint firstItem="9Ct-is-OPp" firstAttribute="centerY" secondItem="CUd-5w-CVX" secondAttribute="centerY" id="Yj1-7C-JUh"/>
                     <constraint firstItem="OlH-iK-s6q" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="dlO-Ml-xDb"/>
-                    <constraint firstItem="9Ct-is-OPp" firstAttribute="centerX" secondItem="CUd-5w-CVX" secondAttribute="centerX" id="iwI-Zt-eX7"/>
                     <constraint firstItem="2X0-Im-XOE" firstAttribute="leading" secondItem="CUd-5w-CVX" secondAttribute="leading" constant="50" id="nSe-BO-tFu"/>
                     <constraint firstAttribute="bottom" secondItem="2X0-Im-XOE" secondAttribute="bottom" id="p0q-Ul-1kM"/>
                     <constraint firstAttribute="trailing" secondItem="OlH-iK-s6q" secondAttribute="trailing" constant="20" id="pdl-9k-a4t"/>
@@ -58,6 +54,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="activityIndicator" destination="tR1-tu-sl7" id="hXT-1r-qJi"/>
                 <outlet property="nameLabel" destination="2X0-Im-XOE" id="k1g-dx-v0C"/>
                 <outlet property="numberLabel" destination="gWZ-Hq-rEP" id="Qno-ec-Jzl"/>
                 <outlet property="scoreLabel" destination="OlH-iK-s6q" id="Pkx-FL-fcL"/>
