@@ -34,24 +34,25 @@ final class CollectionViewController: UICollectionViewController {
     
     func registerCollectionCell() {
         let nib = UINib(nibName: "CollectionCell", bundle: nil)
-        self.collectionView.register(nib, forCellWithReuseIdentifier: "collectionCell")
+        collectionView.register(nib, forCellWithReuseIdentifier: "collectionCell")
     }
     
     func configueNavBar() {
         let navReloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadCollectionView))
         let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
-        self.navigationItem.hidesBackButton = true
-        self.navigationItem.rightBarButtonItem = navReloadButton
-        self.navigationItem.leftBarButtonItem = navMenuButton
+        navigationItem.hidesBackButton = true
+        navigationItem.rightBarButtonItem = navReloadButton
+        navigationItem.leftBarButtonItem = navMenuButton
         updateNavBarTitle()
     }
     
     func updateNavBarTitle() {
         guard currentSelectCounter != 0 else {
-            self.navigationItem.title = "Find matched cells"
+            navigationItem.title = "Find matched cells"
             return
         }
-        self.navigationItem.title = "Score: \(sessionScore)"
+
+        navigationItem.title = "Score: \(sessionScore)"
     }
     
     // MARK: - UICollectionViewDataSource
@@ -61,7 +62,12 @@ final class CollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CollectionCell else { return UICollectionViewCell() }
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CollectionCell
+        else {
+            return UICollectionViewCell()
+        }
+
         session.cells[indexPath.row].isGuessed ? cell.showPicture(named: session.cells[indexPath.row].pictureName) : cell.showCover()
         return cell
     }
@@ -102,13 +108,20 @@ final class CollectionViewController: UICollectionViewController {
     }
     
     func checkSelectedCells() {
-        guard sessionManager.areSelectedCellsEqual(in: session, for: currentSelectedCells) else { currentSelectedCells.removeAll(); return }
+        guard
+            sessionManager.areSelectedCellsEqual(in: session, for: currentSelectedCells)
+        else {
+            currentSelectedCells.removeAll()
+            return
+        }
+
         sessionManager.updateGuessedFlag(in: session, for: currentSelectedCells)
         currentSelectedCells.removeAll()
     }
 
     func countGuessedCells() {
         guard sessionManager.areCellsAllGuessed(in: session) else { return }
+
         sessionScore > minTopScore ? showTopScoreAlert() : showNewGameAlert()
     }
     
@@ -166,7 +179,7 @@ final class CollectionViewController: UICollectionViewController {
 
     @objc func goToMenu() {
         sessionManager.updateSelectCounter(in: session, with: currentSelectCounter)
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 
 }
@@ -187,9 +200,10 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func calculateMaxCellWidth(minNumberOfCellsInRow: Int, maxNumberOfCellsInRow: Int, defaultCellWidth: CGFloat) -> CGFloat {
         var cellWidth = defaultCellWidth
-        for numberOfCellsInRow in minNumberOfCellsInRow...maxNumberOfCellsInRow {
+        for numberOfCellsInRow in minNumberOfCellsInRow ... maxNumberOfCellsInRow {
             guard (session.cells.count % numberOfCellsInRow == 0) else { continue }
-            cellWidth = collectionView.bounds.width/CGFloat(numberOfCellsInRow)
+
+            cellWidth = collectionView.bounds.width / CGFloat(numberOfCellsInRow)
             break
         }
         return cellWidth
@@ -199,12 +213,12 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         var topInset = defaultTopInset
         for numberOfCellsInRow in minNumberOfCellsInRow...maxNumberOfCellsInRow {
             guard (session.cells.count % numberOfCellsInRow == 0) else { continue }
-            let cellSize = collectionView.bounds.width/CGFloat(numberOfCellsInRow)
+
+            let cellSize = collectionView.bounds.width / CGFloat(numberOfCellsInRow)
             let numberOfRows = session.cells.count / numberOfCellsInRow
             topInset = (collectionView.bounds.height - cellSize * CGFloat(numberOfRows)) / 2
             break
         }
         return topInset
     }
-
 }

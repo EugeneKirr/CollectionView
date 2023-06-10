@@ -20,18 +20,18 @@ final class ScoreTableViewController: UITableViewController {
     
     func registerTableCell() {
         let nib = UINib(nibName: "ScoreTableCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "scoreTableCell")
+        tableView.register(nib, forCellReuseIdentifier: "scoreTableCell")
     }
     
     func configueNavBar() {
         let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
-        self.navigationItem.hidesBackButton = true
-        self.navigationItem.leftBarButtonItem = navMenuButton
-        self.navigationItem.title = "Top Scores"
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = navMenuButton
+        navigationItem.title = "Top Scores"
     }
     
     @objc func goToMenu() {
-        self.navigationController?.popToRootViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
 
     // MARK: - Table view data source
@@ -48,7 +48,6 @@ final class ScoreTableViewController: UITableViewController {
         }
 
         guard !topScores.isEmpty else {
-            cell.showActivityIndicator()
             return cell
         }
 

@@ -19,14 +19,24 @@ final class MenuViewController: UIViewController {
     private let sessionManager = SessionManager()
     
     var selectedCellAmount: Int {
-        guard let selectedSegmentTitle = amountSegmentedControl.titleForSegment(at: amountSegmentedControl.selectedSegmentIndex),
-              let selectedAmount = Int(selectedSegmentTitle) else { return 8 }
+        guard
+            let selectedSegmentTitle = amountSegmentedControl.titleForSegment(at: amountSegmentedControl.selectedSegmentIndex),
+            let selectedAmount = Int(selectedSegmentTitle)
+        else {
+            return 8
+        }
+
         return selectedAmount
     }
     
     var selectedRepeatPics: Int {
-        guard let selectedSegmentTitle = repeatedSegmentedControl.titleForSegment(at: repeatedSegmentedControl.selectedSegmentIndex),
-              let selectedRepeat = Int(selectedSegmentTitle) else { return 2 }
+        guard
+            let selectedSegmentTitle = repeatedSegmentedControl.titleForSegment(at: repeatedSegmentedControl.selectedSegmentIndex),
+            let selectedRepeat = Int(selectedSegmentTitle)
+        else {
+            return 2
+        }
+
         return selectedRepeat
     }
     
@@ -62,15 +72,12 @@ final class MenuViewController: UIViewController {
     }
     
     func configureNavBar() {
-        self.navigationController?.navigationBar.barTintColor = .systemYellow
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.tintColor = .darkText
-        self.navigationItem.title = "Menu"
+        navigationItem.title = "Menu"
     }
     
     func modifyViewFor(buttons: [UIButton]) {
         for button in buttons {
-            button.layer.cornerRadius = button.bounds.height/4
+            button.layer.cornerRadius = button.bounds.height / 4
             button.layer.shadowOpacity = 0.7
             button.layer.shadowRadius = 2
             button.layer.shadowOffset = CGSize(width: 0, height: 4)
@@ -79,13 +86,19 @@ final class MenuViewController: UIViewController {
     
     func checkAvailableModes() {
         for index in (0...(repeatedSegmentedControl.numberOfSegments - 1)).reversed() {
-            guard let segmentTitle = repeatedSegmentedControl.titleForSegment(at: index),
-                  let segmentValue = Int(segmentTitle) else { break }
+            guard
+                let segmentTitle = repeatedSegmentedControl.titleForSegment(at: index),
+                let segmentValue = Int(segmentTitle)
+            else {
+                break
+            }
+
             let remainder = selectedCellAmount % segmentValue
             guard remainder == 0 else {
                 repeatedSegmentedControl.setEnabled(false, forSegmentAt: index)
                 continue
             }
+
             repeatedSegmentedControl.setEnabled(true, forSegmentAt: index)
             repeatedSegmentedControl.selectedSegmentIndex = index
         }
@@ -94,9 +107,8 @@ final class MenuViewController: UIViewController {
     func pushViewController<VC: UIViewController>(storyboardName: String, vcIdentifier: String, completionHandler: ((VC) -> Void)) {
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         guard let viewController = storyboard.instantiateViewController(identifier: vcIdentifier) as? VC else { return }
-        self.navigationController?.pushViewController(viewController, animated: true)
+
+        navigationController?.pushViewController(viewController, animated: true)
         completionHandler(viewController)
     }
-
 }
-

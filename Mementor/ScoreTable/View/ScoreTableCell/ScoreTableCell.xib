@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreTableCell" rowHeight="80" id="olC-v7-qJO" customClass="ScoreTableCell" customModule="CollectionView" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="scoreTableCell" rowHeight="80" id="olC-v7-qJO" customClass="ScoreTableCell" customModule="Mementor" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="olC-v7-qJO" id="CUd-5w-CVX">
@@ -16,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gWZ-Hq-rEP">
-                        <rect key="frame" x="8.5" y="0.0" width="31.5" height="80"/>
+                        <rect key="frame" x="9.5" y="0.0" width="30.5" height="80"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -33,15 +34,10 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="tR1-tu-sl7">
-                        <rect key="frame" x="141.5" y="21.5" width="37" height="37"/>
-                        <color key="color" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </activityIndicatorView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstItem="tR1-tu-sl7" firstAttribute="centerY" secondItem="CUd-5w-CVX" secondAttribute="centerY" id="0Ea-Vd-30Y"/>
                     <constraint firstAttribute="bottom" secondItem="gWZ-Hq-rEP" secondAttribute="bottom" id="1Uf-vy-76z"/>
-                    <constraint firstItem="tR1-tu-sl7" firstAttribute="centerX" secondItem="CUd-5w-CVX" secondAttribute="centerX" id="5gd-Er-8od"/>
                     <constraint firstAttribute="bottom" secondItem="OlH-iK-s6q" secondAttribute="bottom" id="G3h-00-JhQ"/>
                     <constraint firstItem="2X0-Im-XOE" firstAttribute="leading" secondItem="gWZ-Hq-rEP" secondAttribute="trailing" constant="10" id="GL8-wN-ngp"/>
                     <constraint firstItem="OlH-iK-s6q" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="dlO-Ml-xDb"/>
@@ -53,8 +49,8 @@
                     <constraint firstItem="2X0-Im-XOE" firstAttribute="top" secondItem="CUd-5w-CVX" secondAttribute="top" id="zUT-SE-FLd"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="activityIndicator" destination="tR1-tu-sl7" id="hXT-1r-qJi"/>
                 <outlet property="nameLabel" destination="2X0-Im-XOE" id="k1g-dx-v0C"/>
                 <outlet property="numberLabel" destination="gWZ-Hq-rEP" id="Qno-ec-Jzl"/>
                 <outlet property="scoreLabel" destination="OlH-iK-s6q" id="Pkx-FL-fcL"/>
