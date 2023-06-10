@@ -10,15 +10,15 @@ import UIKit
 
 final class MenuViewController: UIViewController {
     
-    @IBOutlet weak var amountSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var repeatedSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var continueButton: UIButton!
-    @IBOutlet weak var topScoreButton: UIButton!
+    @IBOutlet private weak var amountSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var repeatedSegmentedControl: UISegmentedControl!
+    @IBOutlet private weak var playButton: UIButton!
+    @IBOutlet private weak var continueButton: UIButton!
+    @IBOutlet private weak var topScoreButton: UIButton!
     
     private let sessionManager = SessionManager()
     
-    var selectedCellAmount: Int {
+    private var selectedCellAmount: Int {
         guard
             let selectedSegmentTitle = amountSegmentedControl.titleForSegment(at: amountSegmentedControl.selectedSegmentIndex),
             let selectedAmount = Int(selectedSegmentTitle)
@@ -29,7 +29,7 @@ final class MenuViewController: UIViewController {
         return selectedAmount
     }
     
-    var selectedRepeatPics: Int {
+    private var selectedRepeatPics: Int {
         guard
             let selectedSegmentTitle = repeatedSegmentedControl.titleForSegment(at: repeatedSegmentedControl.selectedSegmentIndex),
             let selectedRepeat = Int(selectedSegmentTitle)
@@ -40,22 +40,21 @@ final class MenuViewController: UIViewController {
         return selectedRepeat
     }
     
-    @IBAction func changeAmountValue(_ sender: UISegmentedControl) {
+    @IBAction private func changeAmountValue(_ sender: UISegmentedControl) {
         checkAvailableModes()
     }
 
-    @IBAction func tapPlayButton(_ sender: UIButton) {
-        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC") { (collectionVC: CollectionViewController) in
-            sessionManager.createNewSession(cellAmount: selectedCellAmount, repeatPics: selectedRepeatPics)
-        }
+    @IBAction private func tapPlayButton(_ sender: UIButton) {
+        sessionManager.createNewSession(cellAmount: selectedCellAmount, repeatPics: selectedRepeatPics)
+        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC")
     }
     
-    @IBAction func tapContinueButton(_ sender: UIButton) {
-        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC") { (collectionVC: CollectionViewController) in }
+    @IBAction private func tapContinueButton(_ sender: UIButton) {
+        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC")
     }
     
-    @IBAction func tapTopScoreButton(_ sender: UIButton) {
-        pushViewController(storyboardName: "ScoreTable", vcIdentifier: "scoreTableVC") { (ScoreTableViewController) in }
+    @IBAction private func tapTopScoreButton(_ sender: UIButton) {
+        pushViewController(storyboardName: "ScoreTable", vcIdentifier: "scoreTableVC")
     }
     
     override func viewDidLoad() {
@@ -67,15 +66,16 @@ final class MenuViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         guard sessionManager.isSessionExist() else { return }
+
         continueButton.isEnabled = true
         continueButton.alpha = 1.0
     }
     
-    func configureNavBar() {
+    private func configureNavBar() {
         navigationItem.title = NSLocalizedString("menu_title", comment: "")
     }
     
-    func modifyViewFor(buttons: [UIButton]) {
+    private func modifyViewFor(buttons: [UIButton]) {
         for button in buttons {
             button.layer.cornerRadius = button.bounds.height / 4
             button.layer.shadowOpacity = 0.7
@@ -84,7 +84,7 @@ final class MenuViewController: UIViewController {
         }
     }
     
-    func checkAvailableModes() {
+    private func checkAvailableModes() {
         for index in (0...(repeatedSegmentedControl.numberOfSegments - 1)).reversed() {
             guard
                 let segmentTitle = repeatedSegmentedControl.titleForSegment(at: index),
@@ -104,11 +104,9 @@ final class MenuViewController: UIViewController {
         }
     }
     
-    func pushViewController<VC: UIViewController>(storyboardName: String, vcIdentifier: String, completionHandler: ((VC) -> Void)) {
+    private func pushViewController(storyboardName: String, vcIdentifier: String) {
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        guard let viewController = storyboard.instantiateViewController(identifier: vcIdentifier) as? VC else { return }
-
+        let viewController = storyboard.instantiateViewController(identifier: vcIdentifier)
         navigationController?.pushViewController(viewController, animated: true)
-        completionHandler(viewController)
     }
 }

@@ -22,13 +22,6 @@ final class SessionManager {
         return loadedSession
     }
     
-    private func putToUD(_ session: Session) {
-        let encoder = JSONEncoder()
-        guard let encodedSession = try? encoder.encode(session) else { return }
-        let defaults = UserDefaults.standard
-        defaults.set(encodedSession, forKey: UserDefaultsKeys.encodedSession.key)
-    }
-    
     func isSessionExist() -> Bool {
         let defaults = UserDefaults.standard
         return defaults.object(forKey: UserDefaultsKeys.encodedSession.key) != nil
@@ -77,5 +70,11 @@ final class SessionManager {
         }
         return guessedCellCounter == session.cells.count
     }
-    
+
+    private func putToUD(_ session: Session) {
+        let encoder = JSONEncoder()
+        guard let encodedSession = try? encoder.encode(session) else { return }
+        let defaults = UserDefaults.standard
+        defaults.set(encodedSession, forKey: UserDefaultsKeys.encodedSession.key)
+    }
 }

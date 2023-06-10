@@ -24,12 +24,12 @@ final class ScoreTableViewController: UITableViewController {
         tableView.alwaysBounceVertical = false
     }
     
-    func registerTableCell() {
+    private func registerTableCell() {
         let nib = UINib(nibName: "ScoreTableCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "scoreTableCell")
     }
     
-    func configueNavBar() {
+    private func configueNavBar() {
         let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
         let navResetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetTopScores))
         navigationItem.hidesBackButton = true
@@ -38,7 +38,8 @@ final class ScoreTableViewController: UITableViewController {
         navigationItem.title = NSLocalizedString("top_scores_title", comment: "")
     }
     
-    @objc func goToMenu() {
+    @objc
+    private func goToMenu() {
         navigationController?.popToRootViewController(animated: true)
     }
 
@@ -70,7 +71,7 @@ final class ScoreTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return !topScores.isEmpty ? 60 : tableView.bounds.height
+        60
     }
     
     // MARK: - Table view delegate

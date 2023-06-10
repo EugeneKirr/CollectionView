@@ -14,17 +14,19 @@ final class CollectionViewController: UICollectionViewController {
     private let topScoreManager = TopScoreManager()
     
     private var session: Session {
-        return sessionManager.getFromUD()
+        sessionManager.getFromUD()
     }
     
     private var currentSelectedCells = [Int]()
     private var currentSelectCounter = 0
     
     private let scoreMultiplier = 100_000
+
     private var sessionScore: Int {
-        return scoreMultiplier * session.cells.count / currentSelectCounter
+        scoreMultiplier * session.cells.count / currentSelectCounter
     }
-    private var minTopScore = 0
+
+    private lazy var minTopScore = topScoreManager.fetchTopScores().last?.score ?? 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +35,12 @@ final class CollectionViewController: UICollectionViewController {
         registerCollectionCell()
     }
     
-    func registerCollectionCell() {
+    private func registerCollectionCell() {
         let nib = UINib(nibName: "CollectionCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "collectionCell")
     }
     
-    func configueNavBar() {
+    private func configueNavBar() {
         let navReloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadCollectionView))
         let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
         navigationItem.hidesBackButton = true
@@ -47,7 +49,7 @@ final class CollectionViewController: UICollectionViewController {
         updateNavBarTitle()
     }
     
-    func updateNavBarTitle() {
+    private func updateNavBarTitle() {
         guard currentSelectCounter != 0 else {
             navigationItem.title = NSLocalizedString("collection_title", comment: "")
             return
@@ -59,7 +61,7 @@ final class CollectionViewController: UICollectionViewController {
     // MARK: - UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return session.cells.count
+        session.cells.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -100,15 +102,16 @@ final class CollectionViewController: UICollectionViewController {
         countGuessedCells()
     }
     
-    func updateCellViews() {
+    private func updateCellViews() {
         guard currentSelectedCells.count == 0 else { return }
+
         for index in 0...(session.cells.count-1) {
             guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CollectionCell else { return }
             session.cells[index].isGuessed ? cell.showPicture(named: session.cells[index].pictureName): cell.showCover()
         }
     }
     
-    func checkSelectedCells() {
+    private func checkSelectedCells() {
         guard
             sessionManager.areSelectedCellsEqual(in: session, for: currentSelectedCells)
         else {
@@ -120,13 +123,13 @@ final class CollectionViewController: UICollectionViewController {
         currentSelectedCells.removeAll()
     }
 
-    func countGuessedCells() {
+    private func countGuessedCells() {
         guard sessionManager.areCellsAllGuessed(in: session) else { return }
 
         sessionScore > minTopScore ? showTopScoreAlert() : showNewGameAlert()
     }
     
-    func showTopScoreAlert() {
+    private func showTopScoreAlert() {
         let ac = UIAlertController(title: "You have one of the top scores!\n\(sessionScore)", message: "Please enter your name", preferredStyle: .alert)
         
         let ok = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
@@ -159,7 +162,7 @@ final class CollectionViewController: UICollectionViewController {
         present(ac, animated: true)
     }
 
-    func showNewGameAlert() {
+    private func showNewGameAlert() {
         let ac = UIAlertController(title: "You win!", message: "Your score is \(sessionScore)", preferredStyle: .alert)
         let ok = UIAlertAction(title: "New game", style: .default) { (action) in
             self.reloadCollectionView()
@@ -172,7 +175,8 @@ final class CollectionViewController: UICollectionViewController {
         present(ac, animated: true)
     }
     
-    @objc func reloadCollectionView() {
+    @objc
+    private func reloadCollectionView() {
         sessionManager.createNewSession(cellAmount: session.cells.count, repeatPics: session.repeatPics)
         currentSelectCounter = 0
         currentSelectedCells.removeAll()
@@ -180,17 +184,16 @@ final class CollectionViewController: UICollectionViewController {
         collectionView.reloadData()
     }
 
-    @objc func goToMenu() {
+    @objc
+    private func goToMenu() {
         sessionManager.updateSelectCounter(in: session, with: currentSelectCounter)
         navigationController?.popViewController(animated: true)
     }
-
 }
 
 // MARK: - Dynamic Collection Layout
 
 extension CollectionViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellSize = calculateMaxCellWidth(minNumberOfCellsInRow: 3, maxNumberOfCellsInRow: 4, defaultCellWidth: 40)
         return CGSize(width: cellSize, height: cellSize)
@@ -201,7 +204,7 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
     }
     
-    func calculateMaxCellWidth(minNumberOfCellsInRow: Int, maxNumberOfCellsInRow: Int, defaultCellWidth: CGFloat) -> CGFloat {
+    private func calculateMaxCellWidth(minNumberOfCellsInRow: Int, maxNumberOfCellsInRow: Int, defaultCellWidth: CGFloat) -> CGFloat {
         var cellWidth = defaultCellWidth
         for numberOfCellsInRow in minNumberOfCellsInRow ... maxNumberOfCellsInRow {
             guard (session.cells.count % numberOfCellsInRow == 0) else { continue }
@@ -212,7 +215,7 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
         return cellWidth
     }
     
-    func calculateTopInset(minNumberOfCellsInRow: Int, maxNumberOfCellsInRow: Int, defaultTopInset: CGFloat) -> CGFloat {
+    private func calculateTopInset(minNumberOfCellsInRow: Int, maxNumberOfCellsInRow: Int, defaultTopInset: CGFloat) -> CGFloat {
         var topInset = defaultTopInset
         for numberOfCellsInRow in minNumberOfCellsInRow...maxNumberOfCellsInRow {
             guard (session.cells.count % numberOfCellsInRow == 0) else { continue }

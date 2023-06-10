@@ -9,9 +9,7 @@
 import Foundation
 
 struct CellModel: Codable {
-    
     let isGuessed: Bool
     let pictureName: String
-    
 }
 

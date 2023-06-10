@@ -9,9 +9,7 @@
 import Foundation
 
 struct Session: Codable {
-    
     let repeatPics: Int
     let cells: [CellModel]
     let selectCounter: Int
-    
 }

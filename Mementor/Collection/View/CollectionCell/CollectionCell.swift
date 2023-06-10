@@ -10,7 +10,7 @@ import UIKit
 
 final class CollectionCell: UICollectionViewCell {
     
-    @IBOutlet weak var cellImageView: UIImageView!
+    @IBOutlet private weak var cellImageView: UIImageView!
     
     func showCover() {
         cellImageView.image = UIImage(named: "cover")
