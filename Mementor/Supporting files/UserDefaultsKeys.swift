@@ -1,5 +1,5 @@
 //
-//  UDKeys.swift
+//  UserDefaultsKeys.swift
 //  Mementor
 //
 //  Created by Eugene Kireichev on 20/03/2020.
@@ -8,14 +8,13 @@
 
 import Foundation
 
-enum UDKeys {
+enum UserDefaultsKeys: String {
     case encodedSession
+    case encodedTopScores
 }
 
-extension UDKeys {
+extension UserDefaultsKeys {
     var key: String {
-        switch self {
-        case .encodedSession: return "Encoded Session"
-        }
+        self.rawValue
     }
 }

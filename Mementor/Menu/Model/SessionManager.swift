@@ -16,7 +16,7 @@ final class SessionManager {
     
     func getFromUD() -> Session {
         let defaults = UserDefaults.standard
-        guard let savedSession = defaults.object(forKey: UDKeys.encodedSession.key) as? Data else { return emptySession }
+        guard let savedSession = defaults.object(forKey: UserDefaultsKeys.encodedSession.key) as? Data else { return emptySession }
         let decoder = JSONDecoder()
         guard let loadedSession = try? decoder.decode(Session.self, from: savedSession) else { return emptySession }
         return loadedSession
@@ -26,12 +26,12 @@ final class SessionManager {
         let encoder = JSONEncoder()
         guard let encodedSession = try? encoder.encode(session) else { return }
         let defaults = UserDefaults.standard
-        defaults.set(encodedSession, forKey: UDKeys.encodedSession.key)
+        defaults.set(encodedSession, forKey: UserDefaultsKeys.encodedSession.key)
     }
     
     func isSessionExist() -> Bool {
         let defaults = UserDefaults.standard
-        return defaults.object(forKey: UDKeys.encodedSession.key) != nil
+        return defaults.object(forKey: UserDefaultsKeys.encodedSession.key) != nil
     }
     
     func createNewSession(cellAmount: Int, repeatPics: Int) {

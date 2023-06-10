@@ -11,6 +11,7 @@ import UIKit
 final class CollectionViewController: UICollectionViewController {
     
     private let sessionManager = SessionManager()
+    private let topScoreManager = TopScoreManager()
     
     private var session: Session {
         return sessionManager.getFromUD()
@@ -128,26 +129,28 @@ final class CollectionViewController: UICollectionViewController {
     func showTopScoreAlert() {
         let ac = UIAlertController(title: "You have one of the top scores!\n\(sessionScore)", message: "Please enter your name", preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "OK", style: .default) { (ok) in
-            guard var userName = ac.textFields?.first?.text else { return }
+        let ok = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+            guard
+                let self,
+                var userName = ac.textFields?.first?.text
+            else {
+                return
+            }
+
             if userName == "" {
                 userName = "Player"
             }
             let userScore = self.sessionScore
 
-//            self.networkManager.postNewScore(userName, userScore) { [weak self] (result: Result<RawScoreData, NetworkError>) in
-//                switch result {
-//                case .success(let responseRawScore):
-//                    guard userName == responseRawScore.name,
-//                          userScore == responseRawScore.score else { print("posted data not equal received data"); return }
-//                    let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
-//                    let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
-//                    self?.navigationController?.pushViewController(scoreTableVC, animated: true)
-//                case .failure(let networkError):
-//                    print(networkError.errorDescription)
-//                }   
-//            }
+            var topScores = self.topScoreManager.fetchTopScores()
+            topScores.append(TopScore(name: userName, score: userScore))
+            self.topScoreManager.saveTopScores(topScores)
+
+            let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
+            let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
+            self.navigationController?.pushViewController(scoreTableVC, animated: true)
         }
+
         ac.addAction(ok)
         ac.addTextField { (textField) in
             textField.autocapitalizationType = .words

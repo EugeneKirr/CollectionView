@@ -8,7 +8,15 @@
 
 import Foundation
 
-struct TopScore {
+struct TopScore: Codable {
     let name: String
     let score: Int
+}
+
+extension Array where Element == TopScore {
+    func sorted() -> [TopScore] {
+        self.sorted {
+            $0.score > $1.score
+        }
+    }
 }

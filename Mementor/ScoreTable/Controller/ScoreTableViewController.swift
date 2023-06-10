@@ -9,13 +9,19 @@
 import UIKit
 
 final class ScoreTableViewController: UITableViewController {
+
+    private let topScoreManager = TopScoreManager()
     
-    private var topScores: [TopScore] = []
+    private var topScores: [TopScore] {
+        topScoreManager.fetchTopScores()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableCell()
         configueNavBar()
+
+        tableView.alwaysBounceVertical = false
     }
     
     func registerTableCell() {
@@ -25,8 +31,10 @@ final class ScoreTableViewController: UITableViewController {
     
     func configueNavBar() {
         let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
+        let navResetButton = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetTopScores))
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = navMenuButton
+        navigationItem.rightBarButtonItem = navResetButton
         navigationItem.title = NSLocalizedString("top_scores_title", comment: "")
     }
     
@@ -34,10 +42,16 @@ final class ScoreTableViewController: UITableViewController {
         navigationController?.popToRootViewController(animated: true)
     }
 
+    @objc
+    private func resetTopScores() {
+        topScoreManager.resetTopScores()
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+    }
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        !topScores.isEmpty ? topScores.count : 1
+        topScores.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,7 +70,7 @@ final class ScoreTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return !topScores.isEmpty ? 80 : tableView.bounds.height
+        return !topScores.isEmpty ? 60 : tableView.bounds.height
     }
     
     // MARK: - Table view delegate
@@ -64,5 +78,4 @@ final class ScoreTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
 }
