@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0B1CC3DE24221E56003DA428 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1CC3DD24221E56003DA428 /* CellModel.swift */; };
-		0B2FA6A82445E54700ECD675 /* Collection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2FA6A72445E54700ECD675 /* Collection.storyboard */; };
 		0B33F26024253491006ED7C6 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33F25F24253491006ED7C6 /* Session.swift */; };
 		0B33F262242535F4006ED7C6 /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B33F261242535F4006ED7C6 /* UserDefaultsKeys.swift */; };
 		0B3A4E48241B912B00AFFF84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3A4E47241B912B00AFFF84 /* AppDelegate.swift */; };
@@ -30,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		0B1CC3DD24221E56003DA428 /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
-		0B2FA6A72445E54700ECD675 /* Collection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Collection.storyboard; sourceTree = "<group>"; };
 		0B33F25F24253491006ED7C6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		0B33F261242535F4006ED7C6 /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		0B3A4E44241B912B00AFFF84 /* Mementor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mementor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,7 +107,6 @@
 		0B3A4E60241B923900AFFF84 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0B2FA6A72445E54700ECD675 /* Collection.storyboard */,
 				0B04356224461E7100E77D2B /* CollectionCell */,
 			);
 			path = View;
@@ -276,7 +273,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B2FA6A82445E54700ECD675 /* Collection.storyboard in Resources */,
 				0B3A4E54241B912D00AFFF84 /* LaunchScreen.storyboard in Resources */,
 				0B3A4E51241B912D00AFFF84 /* Assets.xcassets in Resources */,
 				0B3A4E4F241B912B00AFFF84 /* Menu.storyboard in Resources */,

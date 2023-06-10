@@ -106,8 +106,7 @@ final class MenuViewController: UIViewController {
     }
 
     private func openCollection() {
-        let collectionStoryboard = UIStoryboard(name: "Collection", bundle: nil)
-        let collectionViewController = collectionStoryboard.instantiateViewController(identifier: "collectionVC")
+        let collectionViewController = CollectionViewController()
         present(collectionViewController, animated: true)
     }
 

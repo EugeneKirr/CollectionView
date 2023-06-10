@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class CollectionViewController: UICollectionViewController {
+final class CollectionViewController: UIViewController {
+    private let collectionViewFlowLayout = UICollectionViewFlowLayout()
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
     
     private let sessionManager = SessionManager()
     private let topScoreManager = TopScoreManager()
@@ -33,6 +35,26 @@ final class CollectionViewController: UICollectionViewController {
         currentSelectCounter = session.selectCounter
         configueNavBar()
         registerCollectionCell()
+
+        view.backgroundColor = .systemYellow
+
+        collectionView.backgroundColor = .clear
+        collectionView.isScrollEnabled = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+
+        collectionViewFlowLayout.scrollDirection = .vertical
+        collectionViewFlowLayout.minimumLineSpacing = .zero
+        collectionViewFlowLayout.minimumInteritemSpacing = .zero
+
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+        ])
     }
     
     private func registerCollectionCell() {
@@ -56,14 +78,16 @@ final class CollectionViewController: UICollectionViewController {
 
         navigationItem.title = "Score: \(sessionScore)"
     }
+}
     
     // MARK: - UICollectionViewDataSource
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension CollectionViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         session.cells.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CollectionCell.self), for: indexPath) as? CollectionCell
         else {
@@ -73,10 +97,12 @@ final class CollectionViewController: UICollectionViewController {
         session.cells[indexPath.row].isGuessed ? cell.showPicture(named: session.cells[indexPath.row].pictureName) : cell.showCover()
         return cell
     }
+}
 
     // MARK: - UICollectionViewDelegate
 
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+extension CollectionViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         let isGuessed = session.cells[indexPath.row].isGuessed
         var isSelected = false
         for index in currentSelectedCells {
@@ -87,7 +113,7 @@ final class CollectionViewController: UICollectionViewController {
         return !(isGuessed || isSelected)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         updateCellViews()
         guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
         cell.showPicture(named: session.cells[indexPath.row].pictureName)
