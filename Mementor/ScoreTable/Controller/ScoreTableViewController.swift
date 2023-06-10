@@ -27,7 +27,7 @@ final class ScoreTableViewController: UITableViewController {
         let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = navMenuButton
-        navigationItem.title = "Top Scores"
+        navigationItem.title = NSLocalizedString("top_scores_title", comment: "")
     }
     
     @objc func goToMenu() {

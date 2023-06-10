@@ -26,6 +26,7 @@
 		0BC87F8B2446E47D00EF234C /* ScoreTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC87F8A2446E47D00EF234C /* ScoreTableCell.swift */; };
 		0BCDCB0A2448918A00ED4794 /* TopScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDCB092448918A00ED4794 /* TopScore.swift */; };
 		0BF9D2B12446FF3A00F73AD4 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9D2B02446FF3A00F73AD4 /* SessionManager.swift */; };
+		932FB7492A3483E900610CD6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 932FB74B2A3483E900610CD6 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		0BCDCB092448918A00ED4794 /* TopScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScore.swift; sourceTree = "<group>"; };
 		0BF9D2B02446FF3A00F73AD4 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		932FB73D2A34548A00610CD6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		932FB74A2A3483E900610CD6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +216,7 @@
 				0B3A4E52241B912D00AFFF84 /* LaunchScreen.storyboard */,
 				0B3A4E50241B912D00AFFF84 /* Assets.xcassets */,
 				932FB73D2A34548A00610CD6 /* Info.plist */,
+				932FB74B2A3483E900610CD6 /* Localizable.strings */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 				0B3A4E54241B912D00AFFF84 /* LaunchScreen.storyboard in Resources */,
 				0B3A4E51241B912D00AFFF84 /* Assets.xcassets in Resources */,
 				0B3A4E4F241B912B00AFFF84 /* Menu.storyboard in Resources */,
+				932FB7492A3483E900610CD6 /* Localizable.strings in Resources */,
 				0BC87F892446E35700EF234C /* ScoreTableCell.xib in Resources */,
 				0BC87F832446E02800EF234C /* ScoreTable.storyboard in Resources */,
 			);
@@ -325,6 +329,14 @@
 				0B3A4E53241B912D00AFFF84 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		932FB74B2A3483E900610CD6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				932FB74A2A3483E900610CD6 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

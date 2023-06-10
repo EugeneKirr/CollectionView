@@ -72,7 +72,7 @@ final class MenuViewController: UIViewController {
     }
     
     func configureNavBar() {
-        navigationItem.title = "Menu"
+        navigationItem.title = NSLocalizedString("menu_title", comment: "")
     }
     
     func modifyViewFor(buttons: [UIButton]) {

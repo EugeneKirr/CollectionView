@@ -48,7 +48,7 @@ final class CollectionViewController: UICollectionViewController {
     
     func updateNavBarTitle() {
         guard currentSelectCounter != 0 else {
-            navigationItem.title = "Find matched cells"
+            navigationItem.title = NSLocalizedString("collection_title", comment: "")
             return
         }
 
