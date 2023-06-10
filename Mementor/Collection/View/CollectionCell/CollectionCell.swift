@@ -36,7 +36,7 @@ final class CollectionCell: UICollectionViewCell {
     }
     
     func showCover() {
-        cellImageView.image = UIImage(named: "cover")
+        cellImageView.image = UIImage(named: "vortex")
     }
     
     func showPicture(named: String) {

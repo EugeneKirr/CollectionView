@@ -16,11 +16,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let menuSB = UIStoryboard(name: "Menu", bundle: nil)
-        let menuVC = menuSB.instantiateViewController(identifier: "menuVC")
-        let navController = UINavigationController(rootViewController: menuVC)
+        let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
+        let menuViewController = menuStoryboard.instantiateViewController(identifier: "menuVC")
         
-        self.window?.rootViewController = navController
+        self.window?.rootViewController = menuViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

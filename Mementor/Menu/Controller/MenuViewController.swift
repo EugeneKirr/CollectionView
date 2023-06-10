@@ -46,11 +46,11 @@ final class MenuViewController: UIViewController {
 
     @IBAction private func tapPlayButton(_ sender: UIButton) {
         sessionManager.createNewSession(cellAmount: selectedCellAmount, repeatPics: selectedRepeatPics)
-        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC")
+        openCollection()
     }
     
     @IBAction private func tapContinueButton(_ sender: UIButton) {
-        pushViewController(storyboardName: "Collection", vcIdentifier: "collectionVC")
+        openCollection()
     }
     
     @IBAction private func tapTopScoreButton(_ sender: UIButton) {
@@ -70,7 +70,8 @@ final class MenuViewController: UIViewController {
         continueButton.isEnabled = true
         continueButton.alpha = 1.0
     }
-    
+
+    // TODO: add title to screen
     private func configureNavBar() {
         navigationItem.title = NSLocalizedString("menu_title", comment: "")
     }
@@ -103,15 +104,15 @@ final class MenuViewController: UIViewController {
             repeatedSegmentedControl.selectedSegmentIndex = index
         }
     }
-    
-    private func pushViewController(storyboardName: String, vcIdentifier: String) {
-        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-        let viewController = storyboard.instantiateViewController(identifier: vcIdentifier)
-        navigationController?.pushViewController(viewController, animated: true)
+
+    private func openCollection() {
+        let collectionStoryboard = UIStoryboard(name: "Collection", bundle: nil)
+        let collectionViewController = collectionStoryboard.instantiateViewController(identifier: "collectionVC")
+        present(collectionViewController, animated: true)
     }
 
     private func openTopScores() {
         let topScoresViewController = ScoreTableViewController()
-        navigationController?.pushViewController(topScoresViewController, animated: true)
+        present(topScoresViewController, animated: true)
     }
 }
