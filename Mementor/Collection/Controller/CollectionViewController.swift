@@ -149,9 +149,7 @@ final class CollectionViewController: UICollectionViewController {
             topScores.append(TopScore(name: userName, score: userScore))
             self.topScoreManager.saveTopScores(topScores)
 
-            let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
-            let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
-            self.navigationController?.pushViewController(scoreTableVC, animated: true)
+            self.openTopScores()
         }
 
         ac.addAction(ok)
@@ -189,6 +187,11 @@ final class CollectionViewController: UICollectionViewController {
         sessionManager.updateSelectCounter(in: session, with: currentSelectCounter)
         navigationController?.popViewController(animated: true)
     }
+
+    private func openTopScores() {
+        let topScoresViewController = ScoreTableViewController()
+        navigationController?.pushViewController(topScoresViewController, animated: true)
+    }
 }
 
 // MARK: - Dynamic Collection Layout
@@ -217,8 +220,8 @@ extension CollectionViewController: UICollectionViewDelegateFlowLayout {
     
     private func calculateTopInset(minNumberOfCellsInRow: Int, maxNumberOfCellsInRow: Int, defaultTopInset: CGFloat) -> CGFloat {
         var topInset = defaultTopInset
-        for numberOfCellsInRow in minNumberOfCellsInRow...maxNumberOfCellsInRow {
-            guard (session.cells.count % numberOfCellsInRow == 0) else { continue }
+        for numberOfCellsInRow in minNumberOfCellsInRow ... maxNumberOfCellsInRow {
+            guard session.cells.count % numberOfCellsInRow == 0 else { continue }
 
             let cellSize = collectionView.bounds.width / CGFloat(numberOfCellsInRow)
             let numberOfRows = session.cells.count / numberOfCellsInRow
