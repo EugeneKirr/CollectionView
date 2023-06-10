@@ -1,6 +1,6 @@
 //
 //  ScoreTableViewController.swift
-//  CollectionView
+//  Mementor
 //
 //  Created by Eugene Kireichev on 15/04/2020.
 //  Copyright © 2020 Eugene Kireichev. All rights reserved.
