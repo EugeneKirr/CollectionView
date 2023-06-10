@@ -36,8 +36,7 @@ final class CollectionViewController: UICollectionViewController {
     }
     
     private func registerCollectionCell() {
-        let nib = UINib(nibName: "CollectionCell", bundle: nil)
-        collectionView.register(nib, forCellWithReuseIdentifier: "collectionCell")
+        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: String(describing: CollectionCell.self))
     }
     
     private func configueNavBar() {
@@ -66,7 +65,7 @@ final class CollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? CollectionCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: CollectionCell.self), for: indexPath) as? CollectionCell
         else {
             return UICollectionViewCell()
         }
