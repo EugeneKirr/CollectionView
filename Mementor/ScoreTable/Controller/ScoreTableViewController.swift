@@ -10,24 +10,12 @@ import UIKit
 
 class ScoreTableViewController: UITableViewController {
     
-    private let networkManager = NetworkManager()
-    
-    private var topScoreData = TopScoreData(scores: [])
+    private var topScores: [TopScore] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         registerTableCell()
         configueNavBar()
-        
-        networkManager.fetchRawModel { [weak self] (result: Result<[RawScoreData], NetworkError>) in
-            switch result {
-            case .success(let rawTopScores):
-                self?.topScoreData = TopScoreData(rawTopScores)
-                self?.tableView.reloadData()
-            case .failure(let networkError):
-                print(networkError.errorDescription)
-            }
-        }
     }
     
     func registerTableCell() {
@@ -49,21 +37,27 @@ class ScoreTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return topScoreData.scores.count > 0 ? topScoreData.scores.count : 1
+        !topScores.isEmpty ? topScores.count : 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "scoreTableCell", for: indexPath) as? ScoreTableCell else { return UITableViewCell() }
-        guard topScoreData.scores.count > 0 else {
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: "scoreTableCell", for: indexPath) as? ScoreTableCell
+        else {
+            return UITableViewCell()
+        }
+
+        guard !topScores.isEmpty else {
             cell.showActivityIndicator()
             return cell
         }
-        cell.updateLabels(with: topScoreData.scores[indexPath.row], for: (indexPath.row + 1) )
+
+        cell.updateLabels(with: topScores[indexPath.row], for: (indexPath.row + 1) )
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return topScoreData.scores.count > 0 ? 80 : tableView.bounds.height
+        return !topScores.isEmpty ? 80 : tableView.bounds.height
     }
     
     // MARK: - Table view delegate

@@ -1,5 +1,5 @@
 //
-//  Score.swift
+//  TopScore.swift
 //  Mementor
 //
 //  Created by Eugene Kireichev on 16/04/2020.
@@ -8,9 +8,7 @@
 
 import Foundation
 
-struct Score {
-    
+struct TopScore {
     let name: String
-    let score: String
-
+    let score: Int
 }

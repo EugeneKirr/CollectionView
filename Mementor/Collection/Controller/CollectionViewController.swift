@@ -11,7 +11,6 @@ import UIKit
 class CollectionViewController: UICollectionViewController {
     
     private let sessionManager = SessionManager()
-    private let networkManager = NetworkManager()
     
     private var session: Session {
         return sessionManager.getFromUD()
@@ -22,7 +21,7 @@ class CollectionViewController: UICollectionViewController {
     
     private let scoreMultiplier = 100_000
     private var sessionScore: Int {
-        return scoreMultiplier*session.cells.count/currentSelectCounter
+        return scoreMultiplier * session.cells.count / currentSelectCounter
     }
     private var minTopScore = 0
 
@@ -31,16 +30,6 @@ class CollectionViewController: UICollectionViewController {
         currentSelectCounter = session.selectCounter
         configueNavBar()
         registerCollectionCell()
-        
-        networkManager.fetchRawModel { [weak self] (result: Result<[RawScoreData], NetworkError>) in
-            switch result {
-            case .success(let rawTopScores):
-                guard let minTopScoreValue = rawTopScores.last?.score else { return }
-                self?.minTopScore = minTopScoreValue
-            case .failure(let networkError):
-                print(networkError.errorDescription)
-            }
-        }
     }
     
     func registerCollectionCell() {
@@ -132,18 +121,19 @@ class CollectionViewController: UICollectionViewController {
                 userName = "Player"
             }
             let userScore = self.sessionScore
-            self.networkManager.postNewScore(userName, userScore) { [weak self] (result: Result<RawScoreData, NetworkError>) in
-                switch result {
-                case .success(let responseRawScore):
-                    guard userName == responseRawScore.name,
-                          userScore == responseRawScore.score else { print("posted data not equal received data"); return }
-                    let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
-                    let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
-                    self?.navigationController?.pushViewController(scoreTableVC, animated: true)
-                case .failure(let networkError):
-                    print(networkError.errorDescription)
-                }   
-            }
+
+//            self.networkManager.postNewScore(userName, userScore) { [weak self] (result: Result<RawScoreData, NetworkError>) in
+//                switch result {
+//                case .success(let responseRawScore):
+//                    guard userName == responseRawScore.name,
+//                          userScore == responseRawScore.score else { print("posted data not equal received data"); return }
+//                    let scoreTableSB = UIStoryboard(name: "ScoreTable", bundle: nil)
+//                    let scoreTableVC = scoreTableSB.instantiateViewController(identifier: "scoreTableVC")
+//                    self?.navigationController?.pushViewController(scoreTableVC, animated: true)
+//                case .failure(let networkError):
+//                    print(networkError.errorDescription)
+//                }   
+//            }
         }
         ac.addAction(ok)
         ac.addTextField { (textField) in

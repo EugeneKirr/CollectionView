@@ -9,18 +9,17 @@
 import UIKit
 
 class ScoreTableCell: UITableViewCell {
-
     
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    func updateLabels(with score: Score, for number: Int) {
+    func updateLabels(with topScore: TopScore, for number: Int) {
         changeAlpha(to: 1, for: [numberLabel, nameLabel, scoreLabel])
         numberLabel.text = "\(number)."
-        nameLabel.text = score.name
-        scoreLabel.text = score.score
+        nameLabel.text = topScore.name
+        scoreLabel.text = "\(topScore.score)"
     }
     
     func showActivityIndicator() {
