@@ -40,13 +40,12 @@
 		0B2FA6A72445E54700ECD675 /* Collection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Collection.storyboard; sourceTree = "<group>"; };
 		0B33F25F24253491006ED7C6 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		0B33F261242535F4006ED7C6 /* UDKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDKeys.swift; sourceTree = "<group>"; };
-		0B3A4E44241B912B00AFFF84 /* CollectionView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B3A4E44241B912B00AFFF84 /* Mementor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mementor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B3A4E47241B912B00AFFF84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B3A4E49241B912B00AFFF84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0B3A4E4E241B912B00AFFF84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Menu.storyboard; sourceTree = "<group>"; };
 		0B3A4E50241B912D00AFFF84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B3A4E53241B912D00AFFF84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0B3A4E55241B912D00AFFF84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B3A4E5B241B920E00AFFF84 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		0B3A4E5D241B922500AFFF84 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		0B6B2CF1242290B700EEF0D8 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +61,7 @@
 		0BCDCB092448918A00ED4794 /* TopScoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScoreData.swift; sourceTree = "<group>"; };
 		0BCDCB0B244891B300ED4794 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		0BF9D2B02446FF3A00F73AD4 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		932FB73D2A34548A00610CD6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +87,7 @@
 		0B3A4E3B241B912B00AFFF84 = {
 			isa = PBXGroup;
 			children = (
-				0B3A4E46241B912B00AFFF84 /* CollectionView */,
+				0B3A4E46241B912B00AFFF84 /* Mementor */,
 				0B3A4E45241B912B00AFFF84 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -95,12 +95,12 @@
 		0B3A4E45241B912B00AFFF84 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0B3A4E44241B912B00AFFF84 /* CollectionView.app */,
+				0B3A4E44241B912B00AFFF84 /* Mementor.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0B3A4E46241B912B00AFFF84 /* CollectionView */ = {
+		0B3A4E46241B912B00AFFF84 /* Mementor */ = {
 			isa = PBXGroup;
 			children = (
 				0B7B1185244D8FE700B772E0 /* Protocols */,
@@ -109,7 +109,7 @@
 				0B6B2CEC24228FB700EEF0D8 /* Collection */,
 				0BC87F812446E01300EF234C /* ScoreTable */,
 			);
-			path = CollectionView;
+			path = Mementor;
 			sourceTree = "<group>";
 		};
 		0B3A4E5F241B923000AFFF84 /* Controller */ = {
@@ -239,7 +239,7 @@
 				0B33F261242535F4006ED7C6 /* UDKeys.swift */,
 				0B3A4E52241B912D00AFFF84 /* LaunchScreen.storyboard */,
 				0B3A4E50241B912D00AFFF84 /* Assets.xcassets */,
-				0B3A4E55241B912D00AFFF84 /* Info.plist */,
+				932FB73D2A34548A00610CD6 /* Info.plist */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
@@ -247,9 +247,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0B3A4E43241B912B00AFFF84 /* CollectionView */ = {
+		0B3A4E43241B912B00AFFF84 /* Mementor */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0B3A4E58241B912D00AFFF84 /* Build configuration list for PBXNativeTarget "CollectionView" */;
+			buildConfigurationList = 0B3A4E58241B912D00AFFF84 /* Build configuration list for PBXNativeTarget "Mementor" */;
 			buildPhases = (
 				0B3A4E40241B912B00AFFF84 /* Sources */,
 				0B3A4E41241B912B00AFFF84 /* Frameworks */,
@@ -259,9 +259,9 @@
 			);
 			dependencies = (
 			);
-			name = CollectionView;
+			name = Mementor;
 			productName = CollectionView;
-			productReference = 0B3A4E44241B912B00AFFF84 /* CollectionView.app */;
+			productReference = 0B3A4E44241B912B00AFFF84 /* Mementor.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -279,7 +279,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0B3A4E3F241B912B00AFFF84 /* Build configuration list for PBXProject "CollectionView" */;
+			buildConfigurationList = 0B3A4E3F241B912B00AFFF84 /* Build configuration list for PBXProject "Mementor" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -292,7 +292,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0B3A4E43241B912B00AFFF84 /* CollectionView */,
+				0B3A4E43241B912B00AFFF84 /* Mementor */,
 			);
 		};
 /* End PBXProject section */
@@ -481,13 +481,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/CollectionView/Supporting files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Mementor/Supporting files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Mementor;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.CollectionView;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Mementor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -498,13 +504,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/CollectionView/Supporting files/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Mementor/Supporting files/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = Mementor;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.CollectionView;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Mementor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -513,7 +525,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0B3A4E3F241B912B00AFFF84 /* Build configuration list for PBXProject "CollectionView" */ = {
+		0B3A4E3F241B912B00AFFF84 /* Build configuration list for PBXProject "Mementor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B3A4E56241B912D00AFFF84 /* Debug */,
@@ -522,7 +534,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0B3A4E58241B912D00AFFF84 /* Build configuration list for PBXNativeTarget "CollectionView" */ = {
+		0B3A4E58241B912D00AFFF84 /* Build configuration list for PBXNativeTarget "Mementor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0B3A4E59241B912D00AFFF84 /* Debug */,
