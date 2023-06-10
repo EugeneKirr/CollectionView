@@ -8,7 +8,9 @@
 
 import UIKit
 
-final class ScoreTableViewController: UITableViewController {
+final class ScoreTableViewController: UIViewController {
+
+    private let tableView = UITableView()
 
     private let topScoreManager = TopScoreManager()
     
@@ -21,7 +23,22 @@ final class ScoreTableViewController: UITableViewController {
         registerTableCell()
         configueNavBar()
 
+        view.backgroundColor = .systemYellow
+
+        tableView.backgroundColor = .clear
         tableView.alwaysBounceVertical = false
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 60.0
+        tableView.dataSource = self
+
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+        ])
     }
     
     private func registerTableCell() {
@@ -48,14 +65,17 @@ final class ScoreTableViewController: UITableViewController {
         topScoreManager.resetTopScores()
         tableView.reloadSections(IndexSet(integer: 0), with: .fade)
     }
+}
 
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension ScoreTableViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         topScores.count
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
             let cell = tableView.dequeueReusableCell(withIdentifier: "scoreTableCell", for: indexPath) as? ScoreTableCell
         else {
@@ -68,15 +88,5 @@ final class ScoreTableViewController: UITableViewController {
 
         cell.updateLabels(with: topScores[indexPath.row], for: (indexPath.row + 1) )
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        60
-    }
-    
-    // MARK: - Table view delegate
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

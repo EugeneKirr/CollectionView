@@ -54,7 +54,7 @@ final class MenuViewController: UIViewController {
     }
     
     @IBAction private func tapTopScoreButton(_ sender: UIButton) {
-        pushViewController(storyboardName: "ScoreTable", vcIdentifier: "scoreTableVC")
+        openTopScores()
     }
     
     override func viewDidLoad() {
@@ -108,5 +108,10 @@ final class MenuViewController: UIViewController {
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: vcIdentifier)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+
+    private func openTopScores() {
+        let topScoresViewController = ScoreTableViewController()
+        navigationController?.pushViewController(topScoresViewController, animated: true)
     }
 }

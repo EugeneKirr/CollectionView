@@ -21,7 +21,6 @@
 		0B3A4E5E241B922500AFFF84 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3A4E5D241B922500AFFF84 /* CollectionCell.swift */; };
 		0B6B2CF2242290B700EEF0D8 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B2CF1242290B700EEF0D8 /* MenuViewController.swift */; };
 		0B8EF7762446E5C500C9501B /* ScoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8EF7752446E5C500C9501B /* ScoreTableViewController.swift */; };
-		0BC87F832446E02800EF234C /* ScoreTable.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BC87F822446E02800EF234C /* ScoreTable.storyboard */; };
 		0BC87F892446E35700EF234C /* ScoreTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BC87F882446E35700EF234C /* ScoreTableCell.xib */; };
 		0BC87F8B2446E47D00EF234C /* ScoreTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC87F8A2446E47D00EF234C /* ScoreTableCell.swift */; };
 		0BCDCB0A2448918A00ED4794 /* TopScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCDCB092448918A00ED4794 /* TopScore.swift */; };
@@ -46,7 +45,6 @@
 		0B3A4E5D241B922500AFFF84 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
 		0B6B2CF1242290B700EEF0D8 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		0B8EF7752446E5C500C9501B /* ScoreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableViewController.swift; sourceTree = "<group>"; };
-		0BC87F822446E02800EF234C /* ScoreTable.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ScoreTable.storyboard; sourceTree = "<group>"; };
 		0BC87F882446E35700EF234C /* ScoreTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScoreTableCell.xib; sourceTree = "<group>"; };
 		0BC87F8A2446E47D00EF234C /* ScoreTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTableCell.swift; sourceTree = "<group>"; };
 		0BCDCB092448918A00ED4794 /* TopScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScore.swift; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 		0BC87F852446E1C300EF234C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0BC87F822446E02800EF234C /* ScoreTable.storyboard */,
 				0BC87F872446E33B00EF234C /* ScoreTableCell */,
 			);
 			path = View;
@@ -289,7 +286,6 @@
 				0B3A4E4F241B912B00AFFF84 /* Menu.storyboard in Resources */,
 				932FB7492A3483E900610CD6 /* Localizable.strings in Resources */,
 				0BC87F892446E35700EF234C /* ScoreTableCell.xib in Resources */,
-				0BC87F832446E02800EF234C /* ScoreTable.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
