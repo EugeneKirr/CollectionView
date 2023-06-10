@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SessionManager {
+final class SessionManager {
     
     private let emptySession = Session(repeatPics: 0, cells: [], selectCounter: 0)
     

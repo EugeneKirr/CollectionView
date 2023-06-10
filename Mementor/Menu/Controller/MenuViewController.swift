@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController {
+final class MenuViewController: UIViewController {
     
     @IBOutlet weak var amountSegmentedControl: UISegmentedControl!
     @IBOutlet weak var repeatedSegmentedControl: UISegmentedControl!

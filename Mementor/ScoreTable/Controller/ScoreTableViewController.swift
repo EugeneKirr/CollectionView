@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScoreTableViewController: UITableViewController {
+final class ScoreTableViewController: UITableViewController {
     
     private var topScores: [TopScore] = []
 
