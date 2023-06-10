@@ -42,8 +42,7 @@ final class ScoreTableViewController: UIViewController {
     }
     
     private func registerTableCell() {
-        let nib = UINib(nibName: "ScoreTableCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "scoreTableCell")
+        tableView.register(ScoreTableCell.self, forCellReuseIdentifier: String(describing: ScoreTableCell.self))
     }
     
     private func configueNavBar() {
@@ -77,7 +76,7 @@ extension ScoreTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: "scoreTableCell", for: indexPath) as? ScoreTableCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ScoreTableCell.self), for: indexPath) as? ScoreTableCell
         else {
             return UITableViewCell()
         }
