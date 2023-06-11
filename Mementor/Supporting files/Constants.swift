@@ -12,3 +12,7 @@ enum Fonts {
     static let regularText = UIFont(name: "Arial Rounded MT Bold", size: 20.0)
     static let smallText = UIFont(name: "Arial Rounded MT Bold", size: 16.0)
 }
+
+enum Images {
+    static let close = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
+}

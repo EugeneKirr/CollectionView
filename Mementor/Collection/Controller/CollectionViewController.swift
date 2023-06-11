@@ -9,6 +9,10 @@
 import UIKit
 
 final class CollectionViewController: UIViewController {
+    private let titleLabel = UILabel()
+    private let closeButton = UIButton()
+    private let reloadButton = UIButton()
+
     private let collectionViewFlowLayout = UICollectionViewFlowLayout()
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
     
@@ -32,16 +36,52 @@ final class CollectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        currentSelectCounter = session.selectCounter
-        configueNavBar()
-        registerCollectionCell()
 
         view.backgroundColor = .systemYellow
+        currentSelectCounter = session.selectCounter
+        configureTitle()
+        configureCollectionView()
+        configureButtonCommonParameters()
+        configureCloseButton()
+        configureReloadButton()
+    }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        sessionManager.updateSelectCounter(in: session, with: currentSelectCounter)
+    }
+
+    private func configureTitle() {
+        view.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0),
+            titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
+            titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
+        ])
+        titleLabel.font = Fonts.regularText
+        titleLabel.textColor = .systemPurple
+        titleLabel.textAlignment = .center
+        updateTitleText()
+    }
+
+    private func updateTitleText() {
+        guard currentSelectCounter != 0 else {
+            titleLabel.text = "Find matched cells"
+            return
+        }
+
+        titleLabel.text = "Score: \(sessionScore)"
+    }
+
+    private func configureCollectionView() {
         collectionView.backgroundColor = .clear
         collectionView.isScrollEnabled = false
         collectionView.dataSource = self
         collectionView.delegate = self
+
+        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: String(describing: CollectionCell.self))
 
         collectionViewFlowLayout.scrollDirection = .vertical
         collectionViewFlowLayout.minimumLineSpacing = .zero
@@ -56,27 +96,37 @@ final class CollectionViewController: UIViewController {
             collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
     }
-    
-    private func registerCollectionCell() {
-        collectionView.register(CollectionCell.self, forCellWithReuseIdentifier: String(describing: CollectionCell.self))
-    }
-    
-    private func configueNavBar() {
-        let navReloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadCollectionView))
-        let navMenuButton = UIBarButtonItem(title: "Menu", style: .plain, target: self, action: #selector(goToMenu))
-        navigationItem.hidesBackButton = true
-        navigationItem.rightBarButtonItem = navReloadButton
-        navigationItem.leftBarButtonItem = navMenuButton
-        updateNavBarTitle()
-    }
-    
-    private func updateNavBarTitle() {
-        guard currentSelectCounter != 0 else {
-            navigationItem.title = NSLocalizedString("collection_title", comment: "")
-            return
-        }
 
-        navigationItem.title = "Score: \(sessionScore)"
+    private func configureButtonCommonParameters() {
+        let buttons: [UIButton] = [closeButton, reloadButton]
+        buttons.forEach {
+            $0.tintColor = .white
+            $0.backgroundColor = .systemPurple
+            $0.layer.cornerRadius = 32.0 / 2
+            $0.layer.shadowOpacity = 0.7
+            $0.layer.shadowRadius = 2
+            $0.layer.shadowOffset = CGSize(width: 0, height: 2)
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                $0.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12.0),
+                $0.widthAnchor.constraint(equalToConstant: 32.0),
+                $0.heightAnchor.constraint(equalToConstant: 32.0)
+            ])
+        }
+    }
+
+    private func configureCloseButton() {
+        closeButton.setImage(Images.close, for: .normal)
+        closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
+        closeButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0).isActive = true
+    }
+
+    private func configureReloadButton() {
+        let reloadImage = UIImage(systemName: "arrow.counterclockwise", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
+        reloadButton.setImage(reloadImage, for: .normal)
+        reloadButton.addTarget(self, action: #selector(reloadCollectionView), for: .touchUpInside)
+        reloadButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0).isActive = true
     }
 }
     
@@ -120,7 +170,7 @@ extension CollectionViewController: UICollectionViewDelegate {
         
         currentSelectCounter += 1
         currentSelectedCells.append(indexPath.row)
-        updateNavBarTitle()
+        updateTitleText()
         
         guard currentSelectedCells.count == session.repeatPics else { return }
         checkSelectedCells()
@@ -187,12 +237,14 @@ extension CollectionViewController: UICollectionViewDelegate {
 
     private func showNewGameAlert() {
         let ac = UIAlertController(title: "You win!", message: "Your score is \(sessionScore)", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "New game", style: .default) { (action) in
-            self.reloadCollectionView()
+        let ok = UIAlertAction(title: "New game", style: .default) { [weak self] _ in
+            self?.reloadCollectionView()
         }
-        let menu = UIAlertAction(title: "Menu", style: .default) { (action) in
-            self.goToMenu()
+
+        let menu = UIAlertAction(title: "Menu", style: .default) { [weak self] _ in
+            self?.close()
         }
+
         ac.addAction(ok)
         ac.addAction(menu)
         present(ac, animated: true)
@@ -203,19 +255,18 @@ extension CollectionViewController: UICollectionViewDelegate {
         sessionManager.createNewSession(cellAmount: session.cells.count, repeatPics: session.repeatPics)
         currentSelectCounter = 0
         currentSelectedCells.removeAll()
-        updateNavBarTitle()
+        updateTitleText()
         collectionView.reloadData()
     }
 
     @objc
-    private func goToMenu() {
-        sessionManager.updateSelectCounter(in: session, with: currentSelectCounter)
-        navigationController?.popViewController(animated: true)
+    private func close() {
+        dismiss(animated: true)
     }
 
     private func openTopScores() {
         let topScoresViewController = ScoreTableViewController()
-        navigationController?.pushViewController(topScoresViewController, animated: true)
+        present(topScoresViewController, animated: true)
     }
 }
 

@@ -160,7 +160,7 @@ final class MenuViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
             $0.setTitleColor(.white, for: .normal)
-            $0.setTitleColor(.lightGray, for: .highlighted)
+            $0.setTitleColor(.gray, for: .highlighted)
             $0.titleLabel?.font = Fonts.regularText
             $0.backgroundColor = .systemPurple
             $0.layer.cornerRadius = 60.0 / 4
