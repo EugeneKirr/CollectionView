@@ -20,7 +20,7 @@ final class CollectionViewController: UIViewController {
     private let topScoreManager = TopScoreManager()
     
     private var session: Session {
-        sessionManager.getFromUD()
+        sessionManager.fetchSession()
     }
     
     private var currentSelectedCells = [Int]()
@@ -173,6 +173,7 @@ extension CollectionViewController: UICollectionViewDelegate {
         updateTitleText()
         
         guard currentSelectedCells.count == session.repeatPics else { return }
+
         checkSelectedCells()
         countGuessedCells()
     }
@@ -180,9 +181,10 @@ extension CollectionViewController: UICollectionViewDelegate {
     private func updateCellViews() {
         guard currentSelectedCells.count == 0 else { return }
 
-        for index in 0...(session.cells.count-1) {
+        for index in 0 ..< session.cells.count {
             guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CollectionCell else { return }
-            session.cells[index].isGuessed ? cell.showPicture(named: session.cells[index].pictureName): cell.showCover()
+
+            session.cells[index].isGuessed ? cell.showPicture(named: session.cells[index].pictureName) : cell.showCover()
         }
     }
     
@@ -256,7 +258,7 @@ extension CollectionViewController: UICollectionViewDelegate {
         currentSelectCounter = 0
         currentSelectedCells.removeAll()
         updateTitleText()
-        collectionView.reloadData()
+        collectionView.reloadSections(IndexSet(integer: 0))
     }
 
     @objc

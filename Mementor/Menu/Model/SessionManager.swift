@@ -9,22 +9,24 @@
 import Foundation
 
 final class SessionManager {
-    
+    private let userDefaults = UserDefaults.standard
     private let emptySession = Session(repeatPics: 0, cells: [], selectCounter: 0)
     
     private let assetsPicNames = ["birdperson", "chair", "evil", "jerry", "meeseeks", "mister", "morty", "nightmare", "pickle", "pluto", "rick", "santa", "show", "snowball", "squanchy", "summer", "sun"]
     
-    func getFromUD() -> Session {
-        let defaults = UserDefaults.standard
-        guard let savedSession = defaults.object(forKey: UserDefaultsKeys.encodedSession.key) as? Data else { return emptySession }
-        let decoder = JSONDecoder()
-        guard let loadedSession = try? decoder.decode(Session.self, from: savedSession) else { return emptySession }
+    func fetchSession() -> Session {
+        guard
+            let savedSession = userDefaults.object(forKey: UserDefaultsKeys.encodedSession.key) as? Data,
+            let loadedSession = try? JSONDecoder().decode(Session.self, from: savedSession)
+        else {
+            return emptySession
+        }
+
         return loadedSession
     }
     
     func isSessionExist() -> Bool {
-        let defaults = UserDefaults.standard
-        return defaults.object(forKey: UserDefaultsKeys.encodedSession.key) != nil
+        userDefaults.object(forKey: UserDefaultsKeys.encodedSession.key) != nil
     }
     
     func createNewSession(cellAmount: Int, repeatPics: Int) {
@@ -38,7 +40,7 @@ final class SessionManager {
             }
         }
         let newSession = Session(repeatPics: repeatPics, cells: newCells.shuffled(), selectCounter: 0)
-        self.putToUD(newSession)
+        saveSession(newSession)
     }
     
     func areSelectedCellsEqual(in session: Session, for selectedCells: [Int]) -> Bool {
@@ -55,12 +57,12 @@ final class SessionManager {
             updatedCells[selectedIndex] = CellModel(isGuessed: true, pictureName: session.cells[selectedIndex].pictureName)
         }
         let updatedSession = Session(repeatPics: session.repeatPics, cells: updatedCells, selectCounter: session.selectCounter)
-        self.putToUD(updatedSession)
+        saveSession(updatedSession)
     }
     
     func updateSelectCounter(in session: Session, with counter: Int) {
         let updatedSession = Session(repeatPics: session.repeatPics, cells: session.cells, selectCounter: counter)
-        self.putToUD(updatedSession)
+        saveSession(updatedSession)
     }
     
     func areCellsAllGuessed(in session: Session) -> Bool {
@@ -71,10 +73,9 @@ final class SessionManager {
         return guessedCellCounter == session.cells.count
     }
 
-    private func putToUD(_ session: Session) {
-        let encoder = JSONEncoder()
-        guard let encodedSession = try? encoder.encode(session) else { return }
-        let defaults = UserDefaults.standard
-        defaults.set(encodedSession, forKey: UserDefaultsKeys.encodedSession.key)
+    private func saveSession(_ session: Session) {
+        guard let encodedSession = try? JSONEncoder().encode(session) else { return }
+
+        userDefaults.set(encodedSession, forKey: UserDefaultsKeys.encodedSession.key)
     }
 }

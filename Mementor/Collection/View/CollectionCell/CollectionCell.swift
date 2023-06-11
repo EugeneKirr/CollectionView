@@ -9,7 +9,6 @@
 import UIKit
 
 final class CollectionCell: UICollectionViewCell {
-    
     private let cellImageView = UIImageView()
 
     override init(frame: CGRect) {
@@ -42,5 +41,4 @@ final class CollectionCell: UICollectionViewCell {
     func showPicture(named: String) {
         cellImageView.image = UIImage(named: named)
     }
-    
 }
