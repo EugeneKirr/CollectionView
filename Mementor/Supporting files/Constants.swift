@@ -9,5 +9,6 @@
 import UIKit
 
 enum Fonts {
-    static let commonText = UIFont(name: "Arial Rounded MT Bold", size: 20.0)
+    static let regularText = UIFont(name: "Arial Rounded MT Bold", size: 20.0)
+    static let smallText = UIFont(name: "Arial Rounded MT Bold", size: 16.0)
 }

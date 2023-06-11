@@ -14,12 +14,13 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
-        
-        let menuStoryboard = UIStoryboard(name: "Menu", bundle: nil)
-        let menuViewController = menuStoryboard.instantiateViewController(identifier: "menuVC")
-        
-        self.window?.rootViewController = menuViewController
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+        let window = UIWindow(windowScene: windowScene)
+        let menuViewController = MenuViewController()
+        window.rootViewController = menuViewController
+        window.makeKeyAndVisible()
+        self.window = window
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
