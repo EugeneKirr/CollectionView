@@ -40,7 +40,7 @@ final class ScoreTableViewController: UIViewController {
             titleLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
             titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
-        titleLabel.font = Fonts.regularText
+        titleLabel.font = Fonts.regular
         titleLabel.textColor = .systemPurple
         titleLabel.textAlignment = .center
         titleLabel.text = "Top Scores"

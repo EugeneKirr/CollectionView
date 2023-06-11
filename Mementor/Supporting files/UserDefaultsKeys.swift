@@ -9,12 +9,13 @@
 import Foundation
 
 enum UserDefaultsKeys: String {
-    case encodedSession
-    case encodedTopScores
+    case session
+    case topScores
+    case settings
 }
 
 extension UserDefaultsKeys {
     var key: String {
-        self.rawValue
+        rawValue
     }
 }

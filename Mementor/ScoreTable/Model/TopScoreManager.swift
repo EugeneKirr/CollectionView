@@ -22,7 +22,7 @@ final class TopScoreManager {
 
     func fetchTopScores() -> [TopScore] {
         guard
-            let savedTopScores = userDefaults.object(forKey: UserDefaultsKeys.encodedTopScores.key) as? Data,
+            let savedTopScores = userDefaults.object(forKey: UserDefaultsKeys.topScores.key) as? Data,
             let fetchedTopScores = try? JSONDecoder().decode([TopScore].self, from: savedTopScores)
         else {
             return defaultTopScores
@@ -34,12 +34,12 @@ final class TopScoreManager {
     func saveTopScores(_ topScores: [TopScore]) {
         guard let encodedTopScores = try? JSONEncoder().encode(topScores.sorted()) else { return }
 
-        userDefaults.set(encodedTopScores, forKey: UserDefaultsKeys.encodedTopScores.key)
+        userDefaults.set(encodedTopScores, forKey: UserDefaultsKeys.topScores.key)
     }
 
     func resetTopScores() {
         guard let encodedTopScores = try? JSONEncoder().encode(defaultTopScores) else { return }
 
-        userDefaults.set(encodedTopScores, forKey: UserDefaultsKeys.encodedTopScores.key)
+        userDefaults.set(encodedTopScores, forKey: UserDefaultsKeys.topScores.key)
     }
 }

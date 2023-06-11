@@ -9,8 +9,9 @@
 import UIKit
 
 enum Fonts {
-    static let regularText = UIFont(name: "Arial Rounded MT Bold", size: 20.0)
-    static let smallText = UIFont(name: "Arial Rounded MT Bold", size: 16.0)
+    static let heading = UIFont(name: "Arial Rounded MT Bold", size: 48.0)
+    static let regular = UIFont(name: "Arial Rounded MT Bold", size: 20.0)
+    static let small = UIFont(name: "Arial Rounded MT Bold", size: 16.0)
 }
 
 enum Images {

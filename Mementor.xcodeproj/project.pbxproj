@@ -23,6 +23,9 @@
 		0BF9D2B12446FF3A00F73AD4 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF9D2B02446FF3A00F73AD4 /* SessionManager.swift */; };
 		932FB74D2A3494FC00610CD6 /* TopScoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FB74C2A3494FC00610CD6 /* TopScoreManager.swift */; };
 		932FB7512A34C98200610CD6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932FB7502A34C98200610CD6 /* Constants.swift */; };
+		93E2B73C2A36296800C65F66 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E2B73B2A36296800C65F66 /* SettingsViewController.swift */; };
+		93E2B73F2A36319E00C65F66 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E2B73E2A36319E00C65F66 /* Settings.swift */; };
+		93E2B7412A36324700C65F66 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E2B7402A36324700C65F66 /* SettingsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		932FB73D2A34548A00610CD6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		932FB74C2A3494FC00610CD6 /* TopScoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopScoreManager.swift; sourceTree = "<group>"; };
 		932FB7502A34C98200610CD6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		93E2B73B2A36296800C65F66 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		93E2B73E2A36319E00C65F66 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		93E2B7402A36324700C65F66 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +94,7 @@
 				0B6B2CED2422900900EEF0D8 /* Menu */,
 				0B6B2CEC24228FB700EEF0D8 /* Collection */,
 				0BC87F812446E01300EF234C /* ScoreTable */,
+				93E2B7392A36293C00C65F66 /* Settings */,
 			);
 			path = Mementor;
 			sourceTree = "<group>";
@@ -209,6 +216,32 @@
 			path = "Supporting files";
 			sourceTree = "<group>";
 		};
+		93E2B7392A36293C00C65F66 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				93E2B73D2A36318D00C65F66 /* Model */,
+				93E2B73A2A36294C00C65F66 /* Controller */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		93E2B73A2A36294C00C65F66 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				93E2B73B2A36296800C65F66 /* SettingsViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		93E2B73D2A36318D00C65F66 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				93E2B73E2A36319E00C65F66 /* Settings.swift */,
+				93E2B7402A36324700C65F66 /* SettingsManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -287,7 +320,10 @@
 				0BCDCB0A2448918A00ED4794 /* TopScore.swift in Sources */,
 				0B3A4E4A241B912B00AFFF84 /* SceneDelegate.swift in Sources */,
 				0B33F262242535F4006ED7C6 /* UserDefaultsKeys.swift in Sources */,
+				93E2B73C2A36296800C65F66 /* SettingsViewController.swift in Sources */,
+				93E2B7412A36324700C65F66 /* SettingsManager.swift in Sources */,
 				0BC87F8B2446E47D00EF234C /* ScoreTableCell.swift in Sources */,
+				93E2B73F2A36319E00C65F66 /* Settings.swift in Sources */,
 				0B6B2CF2242290B700EEF0D8 /* MenuViewController.swift in Sources */,
 				0B3A4E5E241B922500AFFF84 /* CollectionCell.swift in Sources */,
 				932FB7512A34C98200610CD6 /* Constants.swift in Sources */,
