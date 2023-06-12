@@ -11,7 +11,7 @@ import Foundation
 final class SettingsManager {
     private let userDefaults = UserDefaults.standard
 
-    private lazy var defaultSettings = Settings(cellAmount: 8, repeatedPictures: 2)
+    private lazy var defaultSettings = Settings(cellAmount: 8, repeatedPics: 2)
 
     func fetchSettings() -> Settings {
         guard

@@ -10,5 +10,5 @@ import Foundation
 
 struct Settings: Codable {
     let cellAmount: Int
-    let repeatedPictures: Int
+    let repeatedPics: Int
 }

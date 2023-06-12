@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol CollectionViewControllerDelegate: AnyObject {
+    func collectionViewDidClose()
+}
+
 final class CollectionViewController: UIViewController {
+    weak var delegate: CollectionViewControllerDelegate?
+
     private let titleLabel = UILabel()
     private let closeButton = UIButton()
     private let reloadButton = UIButton()
@@ -44,12 +50,14 @@ final class CollectionViewController: UIViewController {
         configureButtonCommonParameters()
         configureCloseButton()
         configureReloadButton()
+        updateTitleText()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
         sessionManager.updateSelectCounter(in: session, with: currentSelectCounter)
+        delegate?.collectionViewDidClose()
     }
 
     private func configureTitle() {
@@ -63,7 +71,6 @@ final class CollectionViewController: UIViewController {
         titleLabel.font = Fonts.regular
         titleLabel.textColor = .systemPurple
         titleLabel.textAlignment = .center
-        updateTitleText()
     }
 
     private func updateTitleText() {

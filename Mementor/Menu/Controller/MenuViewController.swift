@@ -12,6 +12,9 @@ final class MenuViewController: UIViewController {
     private let titleLabel = UILabel()
     private let settingsButton = UIButton()
 
+    private let cellAmountLabel = UILabel()
+    private let repeatedPicsLabel = UILabel()
+
     private let projectLabel = UILabel()
 
     private let playButton = UIButton()
@@ -25,7 +28,7 @@ final class MenuViewController: UIViewController {
     @objc
     private func tapPlayButton(_ sender: UIButton) {
         let settings = settingsManager.fetchSettings()
-        sessionManager.createNewSession(cellAmount: settings.cellAmount, repeatPics: settings.repeatedPictures)
+        sessionManager.createNewSession(cellAmount: settings.cellAmount, repeatPics: settings.repeatedPics)
         openCollection()
     }
 
@@ -44,16 +47,13 @@ final class MenuViewController: UIViewController {
 
         view.backgroundColor = .systemYellow
         configureTitle()
+        configureCellAmountLabel()
+        configureRepeatedPicsLabel()
         configureProjectLabel()
         configureSettingsButton()
         configureButtons()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        guard sessionManager.isSessionExist() else { return }
-
-        continueButton.isEnabled = true
-        continueButton.alpha = 1.0
+        checkIfContinueButtonEnabled()
+        configureSavedSettings()
     }
 
     private func configureTitle() {
@@ -68,6 +68,30 @@ final class MenuViewController: UIViewController {
         titleLabel.textColor = .systemPurple
         titleLabel.textAlignment = .center
         titleLabel.text = "Menu"
+    }
+
+    private func configureCellAmountLabel() {
+        view.addSubview(cellAmountLabel)
+        cellAmountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cellAmountLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40.0),
+            cellAmountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
+            cellAmountLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
+        ])
+        cellAmountLabel.font = Fonts.small
+        cellAmountLabel.textColor = .systemPurple
+    }
+
+    private func configureRepeatedPicsLabel() {
+        view.addSubview(repeatedPicsLabel)
+        repeatedPicsLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            repeatedPicsLabel.topAnchor.constraint(equalTo: cellAmountLabel.bottomAnchor, constant: 16.0),
+            repeatedPicsLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
+            repeatedPicsLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
+        ])
+        repeatedPicsLabel.font = Fonts.small
+        repeatedPicsLabel.textColor = .systemPurple
     }
 
     private func configureProjectLabel() {
@@ -142,8 +166,28 @@ final class MenuViewController: UIViewController {
         ])
     }
 
+    private func checkIfContinueButtonEnabled() {
+        if sessionManager.isSessionExist() {
+            continueButton.isEnabled = true
+            continueButton.alpha = 1.0
+        } else {
+            continueButton.isEnabled = false
+            continueButton.alpha = 0.5
+        }
+    }
+
+    private func configureSavedSettings() {
+        let savedSettings = settingsManager.fetchSettings()
+        let selectedCellAmount = savedSettings.cellAmount
+        let selectedRepeatedPics = savedSettings.repeatedPics
+
+        cellAmountLabel.text = "Amount of cells: \(selectedCellAmount)"
+        repeatedPicsLabel.text = "Amount of repeated pics: \(selectedRepeatedPics)"
+    }
+
     private func openCollection() {
         let collectionViewController = CollectionViewController()
+        collectionViewController.delegate = self
         present(collectionViewController, animated: true)
     }
 
@@ -155,6 +199,19 @@ final class MenuViewController: UIViewController {
     @objc
     private func openSettings() {
         let settingsViewController = SettingsViewController()
+        settingsViewController.delegate = self
         present(settingsViewController, animated: true)
+    }
+}
+
+extension MenuViewController: CollectionViewControllerDelegate {
+    func collectionViewDidClose() {
+        checkIfContinueButtonEnabled()
+    }
+}
+
+extension MenuViewController: SettingsViewControllerDelegate {
+    func settingsViewDidClose() {
+        configureSavedSettings()
     }
 }

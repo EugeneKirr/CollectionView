@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: AnyObject {
+    func settingsViewDidClose()
+}
+
 final class SettingsViewController: UIViewController {
+    weak var delegate: SettingsViewControllerDelegate?
+
     private let titleLabel = UILabel()
     private let closeButton = UIButton()
 
@@ -20,7 +26,7 @@ final class SettingsViewController: UIViewController {
 
     private let settingsManager = SettingsManager()
     private let availableCellAmounts = [8, 9, 12, 16]
-    private let availableRepeatedPictures = [2, 3, 4]
+    private let availableRepeatedPics = [2, 3, 4]
 
     private var selectedCellAmount: Int {
         guard
@@ -38,7 +44,7 @@ final class SettingsViewController: UIViewController {
             let selectedSegmentTitle = repeatedSegmentedControl.titleForSegment(at: repeatedSegmentedControl.selectedSegmentIndex),
             let selectedRepeat = Int(selectedSegmentTitle)
         else {
-            return availableRepeatedPictures[0]
+            return availableRepeatedPics[0]
         }
 
         return selectedRepeat
@@ -52,13 +58,16 @@ final class SettingsViewController: UIViewController {
         configureCloseButton()
         configureAmountSelector()
         configureRepeatedSelector()
+        configureSavedSettings()
+        checkAvailableModes(shouldResetState: false)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        let settings = Settings(cellAmount: selectedCellAmount, repeatedPictures: selectedRepeatedPics)
+        let settings = Settings(cellAmount: selectedCellAmount, repeatedPics: selectedRepeatedPics)
         settingsManager.saveSettings(settings)
+        delegate?.settingsViewDidClose()
     }
 
     private func configureTitle() {
@@ -120,8 +129,7 @@ final class SettingsViewController: UIViewController {
         availableCellAmounts.enumerated().forEach {
             amountSegmentedControl.insertSegment(withTitle: "\($1)", at: $0, animated: false)
         }
-        let selectedCellAmount = settingsManager.fetchSettings().cellAmount
-        amountSegmentedControl.selectedSegmentIndex = availableCellAmounts.firstIndex { $0 == selectedCellAmount } ?? 0
+        amountSegmentedControl.selectedSegmentIndex = 0
     }
 
     private func configureRepeatedSelector() {
@@ -144,15 +152,14 @@ final class SettingsViewController: UIViewController {
         repeatedDescriptionLabel.textAlignment = .center
         repeatedDescriptionLabel.text = "Select amount of repeated pics"
 
-        availableRepeatedPictures.enumerated().forEach {
+        availableRepeatedPics.enumerated().forEach {
             repeatedSegmentedControl.insertSegment(withTitle: "\($1)", at: $0, animated: false)
         }
-        let selectedRepeatedPictures = settingsManager.fetchSettings().repeatedPictures
-        repeatedSegmentedControl.selectedSegmentIndex = availableRepeatedPictures.firstIndex { $0 == selectedRepeatedPictures } ?? 0
+        repeatedSegmentedControl.selectedSegmentIndex = 0
     }
 
-    private func checkAvailableModes() {
-        for index in (0...(repeatedSegmentedControl.numberOfSegments - 1)).reversed() {
+    private func checkAvailableModes(shouldResetState: Bool) {
+        for index in (0 ..< repeatedSegmentedControl.numberOfSegments).reversed() {
             guard
                 let segmentTitle = repeatedSegmentedControl.titleForSegment(at: index),
                 let segmentValue = Int(segmentTitle)
@@ -167,13 +174,23 @@ final class SettingsViewController: UIViewController {
             }
 
             repeatedSegmentedControl.setEnabled(true, forSegmentAt: index)
-            repeatedSegmentedControl.selectedSegmentIndex = index
+            if shouldResetState {
+                repeatedSegmentedControl.selectedSegmentIndex = index
+            }
         }
+    }
+
+    private func configureSavedSettings() {
+        let savedSettings = settingsManager.fetchSettings()
+        let selectedCellAmount = savedSettings.cellAmount
+        let selectedRepeatedPics = savedSettings.repeatedPics
+        amountSegmentedControl.selectedSegmentIndex = availableCellAmounts.firstIndex { $0 == selectedCellAmount } ?? 0
+        repeatedSegmentedControl.selectedSegmentIndex = availableRepeatedPics.firstIndex { $0 == selectedRepeatedPics } ?? 0
     }
 
     @objc
     private func changeAmountValue(_ sender: UISegmentedControl) {
-        checkAvailableModes()
+        checkAvailableModes(shouldResetState: true)
     }
 
     @objc
