@@ -48,7 +48,7 @@ final class ScoreTableCell: UITableViewCell {
             numberLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             numberLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             numberLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8.0),
-            numberLabel.widthAnchor.constraint(equalToConstant: 24.0)
+            numberLabel.widthAnchor.constraint(equalToConstant: 32.0)
         ])
     }
 
