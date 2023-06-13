@@ -45,7 +45,7 @@ final class MenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = Colors.background
         configureTitle()
         configureCellAmountLabel()
         configureRepeatedPicsLabel()
@@ -65,7 +65,7 @@ final class MenuViewController: UIViewController {
             titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         titleLabel.font = Fonts.regular
-        titleLabel.textColor = .systemPurple
+        titleLabel.textColor = Colors.text
         titleLabel.textAlignment = .center
         titleLabel.text = "Menu"
     }
@@ -79,7 +79,7 @@ final class MenuViewController: UIViewController {
             cellAmountLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         cellAmountLabel.font = Fonts.small
-        cellAmountLabel.textColor = .systemPurple
+        cellAmountLabel.textColor = Colors.text
     }
 
     private func configureRepeatedPicsLabel() {
@@ -91,7 +91,7 @@ final class MenuViewController: UIViewController {
             repeatedPicsLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         repeatedPicsLabel.font = Fonts.small
-        repeatedPicsLabel.textColor = .systemPurple
+        repeatedPicsLabel.textColor = Colors.text
     }
 
     private func configureProjectLabel() {
@@ -103,7 +103,7 @@ final class MenuViewController: UIViewController {
             projectLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         projectLabel.font = Fonts.heading
-        projectLabel.textColor = .systemPurple
+        projectLabel.textColor = Colors.accent
         projectLabel.textAlignment = .center
         projectLabel.text = "Mementor"
     }
@@ -111,8 +111,8 @@ final class MenuViewController: UIViewController {
     private func configureSettingsButton() {
         let settingsImage = UIImage(systemName: "gearshape", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
         settingsButton.setImage(settingsImage, for: .normal)
-        settingsButton.tintColor = .white
-        settingsButton.backgroundColor = .systemPurple
+        settingsButton.tintColor = Colors.onAccent
+        settingsButton.backgroundColor = Colors.accent
         settingsButton.layer.cornerRadius = 32.0 / 2
         settingsButton.layer.shadowOpacity = 0.7
         settingsButton.layer.shadowRadius = 2
@@ -136,10 +136,10 @@ final class MenuViewController: UIViewController {
             buttonStackView.addArrangedSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.heightAnchor.constraint(equalToConstant: 60.0).isActive = true
-            $0.setTitleColor(.white, for: .normal)
+            $0.setTitleColor(Colors.onAccent, for: .normal)
             $0.setTitleColor(.gray, for: .highlighted)
             $0.titleLabel?.font = Fonts.regular
-            $0.backgroundColor = .systemPurple
+            $0.backgroundColor = Colors.accent
             $0.layer.cornerRadius = 60.0 / 4
             $0.layer.shadowOpacity = 0.7
             $0.layer.shadowRadius = 2

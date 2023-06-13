@@ -19,6 +19,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let menuViewController = MenuViewController()
         window.rootViewController = menuViewController
+        window.overrideUserInterfaceStyle = .light
         window.makeKeyAndVisible()
         self.window = window
     }

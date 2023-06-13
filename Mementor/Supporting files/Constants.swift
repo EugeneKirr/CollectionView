@@ -17,3 +17,10 @@ enum Fonts {
 enum Images {
     static let close = UIImage(systemName: "xmark", withConfiguration: UIImage.SymbolConfiguration(weight: .heavy))
 }
+
+enum Colors {
+    static let background = UIColor.white
+    static let text = UIColor.darkText
+    static let accent = UIColor.systemBlue
+    static let onAccent = UIColor.white
+}

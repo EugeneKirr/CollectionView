@@ -53,7 +53,7 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = Colors.background
         configureTitle()
         configureCloseButton()
         configureAmountSelector()
@@ -79,15 +79,15 @@ final class SettingsViewController: UIViewController {
             titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         titleLabel.font = Fonts.regular
-        titleLabel.textColor = .systemPurple
+        titleLabel.textColor = Colors.text
         titleLabel.textAlignment = .center
         titleLabel.text = "Settings"
     }
 
     private func configureCloseButton() {
         closeButton.setImage(Images.close, for: .normal)
-        closeButton.tintColor = .white
-        closeButton.backgroundColor = .systemPurple
+        closeButton.tintColor = Colors.onAccent
+        closeButton.backgroundColor = Colors.accent
         closeButton.layer.cornerRadius = 32.0 / 2
         closeButton.layer.shadowOpacity = 0.7
         closeButton.layer.shadowRadius = 2
@@ -121,7 +121,7 @@ final class SettingsViewController: UIViewController {
         ])
 
         amountDescriptionLabel.font = Fonts.small
-        amountDescriptionLabel.textColor = .systemPurple
+        amountDescriptionLabel.textColor = Colors.text
         amountDescriptionLabel.textAlignment = .center
         amountDescriptionLabel.text = "Select amount of cells"
 
@@ -148,7 +148,7 @@ final class SettingsViewController: UIViewController {
         ])
 
         repeatedDescriptionLabel.font = Fonts.small
-        repeatedDescriptionLabel.textColor = .systemPurple
+        repeatedDescriptionLabel.textColor = Colors.text
         repeatedDescriptionLabel.textAlignment = .center
         repeatedDescriptionLabel.text = "Select amount of repeated pics"
 

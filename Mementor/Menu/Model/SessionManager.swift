@@ -12,7 +12,7 @@ final class SessionManager {
     private let userDefaults = UserDefaults.standard
     private let emptySession = Session(repeatPics: 0, cells: [], selectCounter: 0)
     
-    private let assetsPicNames = ["birdperson", "chair", "evil", "jerry", "meeseeks", "mister", "morty", "nightmare", "pickle", "pluto", "rick", "santa", "show", "snowball", "squanchy", "summer", "sun"]
+    private let assetsPicNames = (0 ... 25).map { "mem_card-\($0)" }
     
     func fetchSession() -> Session {
         guard

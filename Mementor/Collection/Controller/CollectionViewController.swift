@@ -43,7 +43,7 @@ final class CollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = Colors.background
         currentSelectCounter = session.selectCounter
         configureTitle()
         configureCollectionView()
@@ -69,7 +69,7 @@ final class CollectionViewController: UIViewController {
             titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         titleLabel.font = Fonts.regular
-        titleLabel.textColor = .systemPurple
+        titleLabel.textColor = Colors.text
         titleLabel.textAlignment = .center
     }
 
@@ -107,8 +107,8 @@ final class CollectionViewController: UIViewController {
     private func configureButtonCommonParameters() {
         let buttons: [UIButton] = [closeButton, reloadButton]
         buttons.forEach {
-            $0.tintColor = .white
-            $0.backgroundColor = .systemPurple
+            $0.tintColor = Colors.onAccent
+            $0.backgroundColor = Colors.accent
             $0.layer.cornerRadius = 32.0 / 2
             $0.layer.shadowOpacity = 0.7
             $0.layer.shadowRadius = 2

@@ -24,7 +24,7 @@ final class ScoreTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = Colors.background
         configureTitle()
         configureTableView()
         configureButtonCommonParameters()
@@ -41,7 +41,7 @@ final class ScoreTableViewController: UIViewController {
             titleLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
         titleLabel.font = Fonts.regular
-        titleLabel.textColor = .systemPurple
+        titleLabel.textColor = Colors.text
         titleLabel.textAlignment = .center
         titleLabel.text = "Top Scores"
     }
@@ -68,8 +68,8 @@ final class ScoreTableViewController: UIViewController {
     private func configureButtonCommonParameters() {
         let buttons: [UIButton] = [closeButton, resetButton]
         buttons.forEach {
-            $0.tintColor = .white
-            $0.backgroundColor = .systemPurple
+            $0.tintColor = Colors.onAccent
+            $0.backgroundColor = Colors.accent
             $0.layer.cornerRadius = 32.0 / 2
             $0.layer.shadowOpacity = 0.7
             $0.layer.shadowRadius = 2

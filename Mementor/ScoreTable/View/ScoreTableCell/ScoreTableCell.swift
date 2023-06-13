@@ -33,7 +33,7 @@ final class ScoreTableCell: UITableViewCell {
         labels.forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.textColor = .systemPurple
+            $0.textColor = Colors.text
             $0.font = Fonts.regular
         }
 
