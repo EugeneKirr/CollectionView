@@ -112,7 +112,7 @@ final class SettingsViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
-            amountDescriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40.0),
+            amountDescriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 48.0),
             amountDescriptionLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
             amountDescriptionLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0),
             amountSegmentedControl.topAnchor.constraint(equalTo: amountDescriptionLabel.bottomAnchor, constant: 8.0),
@@ -139,7 +139,7 @@ final class SettingsViewController: UIViewController {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         NSLayoutConstraint.activate([
-            repeatedDescriptionLabel.topAnchor.constraint(equalTo: amountSegmentedControl.bottomAnchor, constant: 40.0),
+            repeatedDescriptionLabel.topAnchor.constraint(equalTo: amountSegmentedControl.bottomAnchor, constant: 48.0),
             repeatedDescriptionLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
             repeatedDescriptionLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0),
             repeatedSegmentedControl.topAnchor.constraint(equalTo: repeatedDescriptionLabel.bottomAnchor, constant: 8.0),

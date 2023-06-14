@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,20 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mementor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BP4-kn-qt0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mementor_background" translatesAutoresizingMaskIntoConstraints="NO" id="LyH-wg-47K">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="48"/>
-                                <color key="textColor" systemColor="systemBlueColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="BP4-kn-qt0" secondAttribute="bottom" id="ACn-9e-IDu"/>
-                            <constraint firstItem="BP4-kn-qt0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="B3T-oz-LMG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BP4-kn-qt0" secondAttribute="trailing" id="We5-3o-b5I"/>
-                            <constraint firstItem="BP4-kn-qt0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="wbk-rj-BzA"/>
+                            <constraint firstItem="LyH-wg-47K" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2LD-pM-zIX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LyH-wg-47K" secondAttribute="trailing" id="PKp-8q-V7j"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LyH-wg-47K" secondAttribute="bottom" id="p3V-sQ-AjJ"/>
+                            <constraint firstItem="LyH-wg-47K" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wdR-Nz-mbz"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,8 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="mementor_background" width="1179" height="1179"/>
     </resources>
 </document>

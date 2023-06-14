@@ -47,9 +47,9 @@ final class MenuViewController: UIViewController {
 
         view.backgroundColor = Colors.background
         configureTitle()
+        configureProjectLabel()
         configureCellAmountLabel()
         configureRepeatedPicsLabel()
-        configureProjectLabel()
         configureSettingsButton()
         configureButtons()
         checkIfContinueButtonEnabled()
@@ -70,11 +70,24 @@ final class MenuViewController: UIViewController {
         titleLabel.text = "Menu"
     }
 
+    private func configureProjectLabel() {
+        view.addSubview(projectLabel)
+        projectLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            projectLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 48.0),
+            projectLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
+            projectLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
+        ])
+        projectLabel.font = Fonts.heading
+        projectLabel.textColor = Colors.accent
+        projectLabel.text = "Mementor"
+    }
+
     private func configureCellAmountLabel() {
         view.addSubview(cellAmountLabel)
         cellAmountLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            cellAmountLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40.0),
+            cellAmountLabel.topAnchor.constraint(equalTo: projectLabel.bottomAnchor, constant: 48.0),
             cellAmountLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
             cellAmountLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
         ])
@@ -92,20 +105,6 @@ final class MenuViewController: UIViewController {
         ])
         repeatedPicsLabel.font = Fonts.small
         repeatedPicsLabel.textColor = Colors.text
-    }
-
-    private func configureProjectLabel() {
-        view.addSubview(projectLabel)
-        projectLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            projectLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            projectLabel.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 16.0),
-            projectLabel.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -16.0)
-        ])
-        projectLabel.font = Fonts.heading
-        projectLabel.textColor = Colors.accent
-        projectLabel.textAlignment = .center
-        projectLabel.text = "Mementor"
     }
 
     private func configureSettingsButton() {
